@@ -306,13 +306,16 @@ def main():
     x_2=env_value[1].split(',')
     x_3=env_value[2].split(',')
     data=[]
+    env_date.reverse()
     for i in range(len(env_date)):
-        data.append([env_date[i],x_1[i],x_2[i],x_3[i]])
+        env_date[i]=env_date[i][0:(env_date[i].rindex(',')-1)]
+        # data.append([env_date[i],x_1[i],x_2[i],x_3[i]])
+        data.append([env_date[i],x_1[i]])
 
     # print(data)
 
     # # print((env_value[0]))
-    with open("./output.txt", "w") as f:
+    with open("./output_newcases.txt", "w") as f:
         for i in data:
             f.write(str(i))
             f.write("\n")
