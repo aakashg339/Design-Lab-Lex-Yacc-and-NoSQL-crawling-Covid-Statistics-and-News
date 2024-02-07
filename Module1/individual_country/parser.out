@@ -1,0 +1,832 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CLOSEBOLD
+    CLOSEDATA
+    CLOSEH4
+    CLOSEHEADER
+    CLOSENOBR
+    CLOSEROW
+    CLOSESMALL
+    CLOSESPAN
+    CLOSESTYLE
+    CLOSETABLE
+    CLOSETABLEHEADER
+    CLOSETABLE_TABLE
+    GARBAGE
+    IMAGE
+    OPENBOLD
+    OPENBR
+    OPENDATA
+    OPENH4
+    OPENHEADER
+    OPENLINK
+    OPENNOBR
+    OPENROW
+    OPENSMALL
+    OPENSPAN
+    OPENSTYLE
+    OPENTABLE
+    OPENTABLEHEADER
+    OPENTABLE_TABLE
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> table
+Rule 2     skiptag -> CONTENT skiptag
+Rule 3     skiptag -> OPENHREF skiptag
+Rule 4     skiptag -> CLOSEHREF skiptag
+Rule 5     skiptag -> OPENDIV skiptag
+Rule 6     skiptag -> CLOSEDIV skiptag
+Rule 7     skiptag -> OPENH3 skiptag
+Rule 8     skiptag -> CLOSEH3 skiptag
+Rule 9     skiptag -> empty
+Rule 10    dates -> CONTENT CONTENT dates
+Rule 11    dates -> CONTENT SPECIFICYAXIS
+Rule 12    dates -> SPECIFICYAXIS
+Rule 13    spec_data -> SPECIFICDATA CONTENT
+Rule 14    spec_data -> empty
+Rule 15    script_handle -> CONTENT script_handle
+Rule 16    script_handle -> OPENSCRIPT script_handle
+Rule 17    script_handle -> CLOSESCRIPT script_handle
+Rule 18    script_handle -> CATEGORY dates script_handle
+Rule 19    script_handle -> spec_data script_handle
+Rule 20    script_handle -> empty
+Rule 21    handlescript -> OPENSCRIPT script_handle CLOSESCRIPT
+Rule 22    handlescript -> empty
+Rule 23    table -> BEGINTABLE skiptag handlescript
+Rule 24    empty -> <empty>
+Rule 25    content -> CONTENT
+Rule 26    content -> empty
+
+Terminals, with rules where they appear
+
+BEGINTABLE           : 23
+CATEGORY             : 18
+CLOSEBOLD            : 
+CLOSEDATA            : 
+CLOSEDIV             : 6
+CLOSEH3              : 8
+CLOSEH4              : 
+CLOSEHEADER          : 
+CLOSEHREF            : 4
+CLOSENOBR            : 
+CLOSEROW             : 
+CLOSESCRIPT          : 17 21
+CLOSESMALL           : 
+CLOSESPAN            : 
+CLOSESTYLE           : 
+CLOSETABLE           : 
+CLOSETABLEHEADER     : 
+CLOSETABLE_TABLE     : 
+CONTENT              : 2 10 10 11 13 15 25
+GARBAGE              : 
+IMAGE                : 
+OPENBOLD             : 
+OPENBR               : 
+OPENDATA             : 
+OPENDIV              : 5
+OPENH3               : 7
+OPENH4               : 
+OPENHEADER           : 
+OPENHREF             : 3
+OPENLINK             : 
+OPENNOBR             : 
+OPENROW              : 
+OPENSCRIPT           : 16 21
+OPENSMALL            : 
+OPENSPAN             : 
+OPENSTYLE            : 
+OPENTABLE            : 
+OPENTABLEHEADER      : 
+OPENTABLE_TABLE      : 
+SPECIFICDATA         : 13
+SPECIFICYAXIS        : 11 12
+error                : 
+
+Nonterminals, with rules where they appear
+
+content              : 
+dates                : 10 18
+empty                : 9 14 20 22 26
+handlescript         : 23
+script_handle        : 15 16 17 18 19 21
+skiptag              : 2 3 4 5 6 7 8 23
+spec_data            : 19
+start                : 0
+table                : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . table
+    (23) table -> . BEGINTABLE skiptag handlescript
+
+    BEGINTABLE      shift and go to state 3
+
+    start                          shift and go to state 1
+    table                          shift and go to state 2
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> table .
+
+    $end            reduce using rule 1 (start -> table .)
+
+
+state 3
+
+    (23) table -> BEGINTABLE . skiptag handlescript
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 4
+    empty                          shift and go to state 12
+
+state 4
+
+    (23) table -> BEGINTABLE skiptag . handlescript
+    (21) handlescript -> . OPENSCRIPT script_handle CLOSESCRIPT
+    (22) handlescript -> . empty
+    (24) empty -> .
+
+    OPENSCRIPT      shift and go to state 14
+    $end            reduce using rule 24 (empty -> .)
+
+    handlescript                   shift and go to state 13
+    empty                          shift and go to state 15
+
+state 5
+
+    (2) skiptag -> CONTENT . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 16
+    empty                          shift and go to state 12
+
+state 6
+
+    (3) skiptag -> OPENHREF . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 17
+    empty                          shift and go to state 12
+
+state 7
+
+    (4) skiptag -> CLOSEHREF . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 18
+    empty                          shift and go to state 12
+
+state 8
+
+    (5) skiptag -> OPENDIV . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 19
+    empty                          shift and go to state 12
+
+state 9
+
+    (6) skiptag -> CLOSEDIV . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 20
+    empty                          shift and go to state 12
+
+state 10
+
+    (7) skiptag -> OPENH3 . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 21
+    empty                          shift and go to state 12
+
+state 11
+
+    (8) skiptag -> CLOSEH3 . skiptag
+    (2) skiptag -> . CONTENT skiptag
+    (3) skiptag -> . OPENHREF skiptag
+    (4) skiptag -> . CLOSEHREF skiptag
+    (5) skiptag -> . OPENDIV skiptag
+    (6) skiptag -> . CLOSEDIV skiptag
+    (7) skiptag -> . OPENH3 skiptag
+    (8) skiptag -> . CLOSEH3 skiptag
+    (9) skiptag -> . empty
+    (24) empty -> .
+
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    OPENDIV         shift and go to state 8
+    CLOSEDIV        shift and go to state 9
+    OPENH3          shift and go to state 10
+    CLOSEH3         shift and go to state 11
+    OPENSCRIPT      reduce using rule 24 (empty -> .)
+    $end            reduce using rule 24 (empty -> .)
+
+    skiptag                        shift and go to state 22
+    empty                          shift and go to state 12
+
+state 12
+
+    (9) skiptag -> empty .
+
+    OPENSCRIPT      reduce using rule 9 (skiptag -> empty .)
+    $end            reduce using rule 9 (skiptag -> empty .)
+
+
+state 13
+
+    (23) table -> BEGINTABLE skiptag handlescript .
+
+    $end            reduce using rule 23 (table -> BEGINTABLE skiptag handlescript .)
+
+
+state 14
+
+    (21) handlescript -> OPENSCRIPT . script_handle CLOSESCRIPT
+    (15) script_handle -> . CONTENT script_handle
+    (16) script_handle -> . OPENSCRIPT script_handle
+    (17) script_handle -> . CLOSESCRIPT script_handle
+    (18) script_handle -> . CATEGORY dates script_handle
+    (19) script_handle -> . spec_data script_handle
+    (20) script_handle -> . empty
+    (13) spec_data -> . SPECIFICDATA CONTENT
+    (14) spec_data -> . empty
+    (24) empty -> .
+
+  ! shift/reduce conflict for CLOSESCRIPT resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+  ! shift/reduce conflict for OPENSCRIPT resolved as shift
+  ! shift/reduce conflict for CATEGORY resolved as shift
+  ! shift/reduce conflict for SPECIFICDATA resolved as shift
+    CONTENT         shift and go to state 26
+    OPENSCRIPT      shift and go to state 23
+    CLOSESCRIPT     shift and go to state 25
+    CATEGORY        shift and go to state 27
+    SPECIFICDATA    shift and go to state 30
+
+  ! CLOSESCRIPT     [ reduce using rule 24 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 24 (empty -> .) ]
+  ! OPENSCRIPT      [ reduce using rule 24 (empty -> .) ]
+  ! CATEGORY        [ reduce using rule 24 (empty -> .) ]
+  ! SPECIFICDATA    [ reduce using rule 24 (empty -> .) ]
+
+    script_handle                  shift and go to state 24
+    spec_data                      shift and go to state 28
+    empty                          shift and go to state 29
+
+state 15
+
+    (22) handlescript -> empty .
+
+    $end            reduce using rule 22 (handlescript -> empty .)
+
+
+state 16
+
+    (2) skiptag -> CONTENT skiptag .
+
+    OPENSCRIPT      reduce using rule 2 (skiptag -> CONTENT skiptag .)
+    $end            reduce using rule 2 (skiptag -> CONTENT skiptag .)
+
+
+state 17
+
+    (3) skiptag -> OPENHREF skiptag .
+
+    OPENSCRIPT      reduce using rule 3 (skiptag -> OPENHREF skiptag .)
+    $end            reduce using rule 3 (skiptag -> OPENHREF skiptag .)
+
+
+state 18
+
+    (4) skiptag -> CLOSEHREF skiptag .
+
+    OPENSCRIPT      reduce using rule 4 (skiptag -> CLOSEHREF skiptag .)
+    $end            reduce using rule 4 (skiptag -> CLOSEHREF skiptag .)
+
+
+state 19
+
+    (5) skiptag -> OPENDIV skiptag .
+
+    OPENSCRIPT      reduce using rule 5 (skiptag -> OPENDIV skiptag .)
+    $end            reduce using rule 5 (skiptag -> OPENDIV skiptag .)
+
+
+state 20
+
+    (6) skiptag -> CLOSEDIV skiptag .
+
+    OPENSCRIPT      reduce using rule 6 (skiptag -> CLOSEDIV skiptag .)
+    $end            reduce using rule 6 (skiptag -> CLOSEDIV skiptag .)
+
+
+state 21
+
+    (7) skiptag -> OPENH3 skiptag .
+
+    OPENSCRIPT      reduce using rule 7 (skiptag -> OPENH3 skiptag .)
+    $end            reduce using rule 7 (skiptag -> OPENH3 skiptag .)
+
+
+state 22
+
+    (8) skiptag -> CLOSEH3 skiptag .
+
+    OPENSCRIPT      reduce using rule 8 (skiptag -> CLOSEH3 skiptag .)
+    $end            reduce using rule 8 (skiptag -> CLOSEH3 skiptag .)
+
+
+state 23
+
+    (16) script_handle -> OPENSCRIPT . script_handle
+    (15) script_handle -> . CONTENT script_handle
+    (16) script_handle -> . OPENSCRIPT script_handle
+    (17) script_handle -> . CLOSESCRIPT script_handle
+    (18) script_handle -> . CATEGORY dates script_handle
+    (19) script_handle -> . spec_data script_handle
+    (20) script_handle -> . empty
+    (13) spec_data -> . SPECIFICDATA CONTENT
+    (14) spec_data -> . empty
+    (24) empty -> .
+
+  ! shift/reduce conflict for CLOSESCRIPT resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+  ! shift/reduce conflict for OPENSCRIPT resolved as shift
+  ! shift/reduce conflict for CATEGORY resolved as shift
+  ! shift/reduce conflict for SPECIFICDATA resolved as shift
+    CONTENT         shift and go to state 26
+    OPENSCRIPT      shift and go to state 23
+    CLOSESCRIPT     shift and go to state 25
+    CATEGORY        shift and go to state 27
+    SPECIFICDATA    shift and go to state 30
+
+  ! CLOSESCRIPT     [ reduce using rule 24 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 24 (empty -> .) ]
+  ! OPENSCRIPT      [ reduce using rule 24 (empty -> .) ]
+  ! CATEGORY        [ reduce using rule 24 (empty -> .) ]
+  ! SPECIFICDATA    [ reduce using rule 24 (empty -> .) ]
+
+    script_handle                  shift and go to state 31
+    spec_data                      shift and go to state 28
+    empty                          shift and go to state 29
+
+state 24
+
+    (21) handlescript -> OPENSCRIPT script_handle . CLOSESCRIPT
+
+    CLOSESCRIPT     shift and go to state 32
+
+
+state 25
+
+    (17) script_handle -> CLOSESCRIPT . script_handle
+    (15) script_handle -> . CONTENT script_handle
+    (16) script_handle -> . OPENSCRIPT script_handle
+    (17) script_handle -> . CLOSESCRIPT script_handle
+    (18) script_handle -> . CATEGORY dates script_handle
+    (19) script_handle -> . spec_data script_handle
+    (20) script_handle -> . empty
+    (13) spec_data -> . SPECIFICDATA CONTENT
+    (14) spec_data -> . empty
+    (24) empty -> .
+
+  ! shift/reduce conflict for CLOSESCRIPT resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+  ! shift/reduce conflict for OPENSCRIPT resolved as shift
+  ! shift/reduce conflict for CATEGORY resolved as shift
+  ! shift/reduce conflict for SPECIFICDATA resolved as shift
+    CONTENT         shift and go to state 26
+    OPENSCRIPT      shift and go to state 23
+    CLOSESCRIPT     shift and go to state 25
+    CATEGORY        shift and go to state 27
+    SPECIFICDATA    shift and go to state 30
+
+  ! CLOSESCRIPT     [ reduce using rule 24 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 24 (empty -> .) ]
+  ! OPENSCRIPT      [ reduce using rule 24 (empty -> .) ]
+  ! CATEGORY        [ reduce using rule 24 (empty -> .) ]
+  ! SPECIFICDATA    [ reduce using rule 24 (empty -> .) ]
+
+    script_handle                  shift and go to state 33
+    spec_data                      shift and go to state 28
+    empty                          shift and go to state 29
+
+state 26
+
+    (15) script_handle -> CONTENT . script_handle
+    (15) script_handle -> . CONTENT script_handle
+    (16) script_handle -> . OPENSCRIPT script_handle
+    (17) script_handle -> . CLOSESCRIPT script_handle
+    (18) script_handle -> . CATEGORY dates script_handle
+    (19) script_handle -> . spec_data script_handle
+    (20) script_handle -> . empty
+    (13) spec_data -> . SPECIFICDATA CONTENT
+    (14) spec_data -> . empty
+    (24) empty -> .
+
+  ! shift/reduce conflict for CLOSESCRIPT resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+  ! shift/reduce conflict for OPENSCRIPT resolved as shift
+  ! shift/reduce conflict for CATEGORY resolved as shift
+  ! shift/reduce conflict for SPECIFICDATA resolved as shift
+    CONTENT         shift and go to state 26
+    OPENSCRIPT      shift and go to state 23
+    CLOSESCRIPT     shift and go to state 25
+    CATEGORY        shift and go to state 27
+    SPECIFICDATA    shift and go to state 30
+
+  ! CLOSESCRIPT     [ reduce using rule 24 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 24 (empty -> .) ]
+  ! OPENSCRIPT      [ reduce using rule 24 (empty -> .) ]
+  ! CATEGORY        [ reduce using rule 24 (empty -> .) ]
+  ! SPECIFICDATA    [ reduce using rule 24 (empty -> .) ]
+
+    script_handle                  shift and go to state 34
+    spec_data                      shift and go to state 28
+    empty                          shift and go to state 29
+
+state 27
+
+    (18) script_handle -> CATEGORY . dates script_handle
+    (10) dates -> . CONTENT CONTENT dates
+    (11) dates -> . CONTENT SPECIFICYAXIS
+    (12) dates -> . SPECIFICYAXIS
+
+    CONTENT         shift and go to state 36
+    SPECIFICYAXIS   shift and go to state 37
+
+    dates                          shift and go to state 35
+
+state 28
+
+    (19) script_handle -> spec_data . script_handle
+    (15) script_handle -> . CONTENT script_handle
+    (16) script_handle -> . OPENSCRIPT script_handle
+    (17) script_handle -> . CLOSESCRIPT script_handle
+    (18) script_handle -> . CATEGORY dates script_handle
+    (19) script_handle -> . spec_data script_handle
+    (20) script_handle -> . empty
+    (13) spec_data -> . SPECIFICDATA CONTENT
+    (14) spec_data -> . empty
+    (24) empty -> .
+
+  ! shift/reduce conflict for CLOSESCRIPT resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+  ! shift/reduce conflict for OPENSCRIPT resolved as shift
+  ! shift/reduce conflict for CATEGORY resolved as shift
+  ! shift/reduce conflict for SPECIFICDATA resolved as shift
+    CONTENT         shift and go to state 26
+    OPENSCRIPT      shift and go to state 23
+    CLOSESCRIPT     shift and go to state 25
+    CATEGORY        shift and go to state 27
+    SPECIFICDATA    shift and go to state 30
+
+  ! CLOSESCRIPT     [ reduce using rule 24 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 24 (empty -> .) ]
+  ! OPENSCRIPT      [ reduce using rule 24 (empty -> .) ]
+  ! CATEGORY        [ reduce using rule 24 (empty -> .) ]
+  ! SPECIFICDATA    [ reduce using rule 24 (empty -> .) ]
+
+    spec_data                      shift and go to state 28
+    script_handle                  shift and go to state 38
+    empty                          shift and go to state 29
+
+state 29
+
+    (20) script_handle -> empty .
+    (14) spec_data -> empty .
+
+  ! reduce/reduce conflict for CLOSESCRIPT resolved using rule 14 (spec_data -> empty .)
+    CONTENT         reduce using rule 14 (spec_data -> empty .)
+    OPENSCRIPT      reduce using rule 14 (spec_data -> empty .)
+    CLOSESCRIPT     reduce using rule 14 (spec_data -> empty .)
+    CATEGORY        reduce using rule 14 (spec_data -> empty .)
+    SPECIFICDATA    reduce using rule 14 (spec_data -> empty .)
+
+  ! CLOSESCRIPT     [ reduce using rule 20 (script_handle -> empty .) ]
+
+
+state 30
+
+    (13) spec_data -> SPECIFICDATA . CONTENT
+
+    CONTENT         shift and go to state 39
+
+
+state 31
+
+    (16) script_handle -> OPENSCRIPT script_handle .
+
+    CLOSESCRIPT     reduce using rule 16 (script_handle -> OPENSCRIPT script_handle .)
+
+
+state 32
+
+    (21) handlescript -> OPENSCRIPT script_handle CLOSESCRIPT .
+
+    $end            reduce using rule 21 (handlescript -> OPENSCRIPT script_handle CLOSESCRIPT .)
+
+
+state 33
+
+    (17) script_handle -> CLOSESCRIPT script_handle .
+
+    CLOSESCRIPT     reduce using rule 17 (script_handle -> CLOSESCRIPT script_handle .)
+
+
+state 34
+
+    (15) script_handle -> CONTENT script_handle .
+
+    CLOSESCRIPT     reduce using rule 15 (script_handle -> CONTENT script_handle .)
+
+
+state 35
+
+    (18) script_handle -> CATEGORY dates . script_handle
+    (15) script_handle -> . CONTENT script_handle
+    (16) script_handle -> . OPENSCRIPT script_handle
+    (17) script_handle -> . CLOSESCRIPT script_handle
+    (18) script_handle -> . CATEGORY dates script_handle
+    (19) script_handle -> . spec_data script_handle
+    (20) script_handle -> . empty
+    (13) spec_data -> . SPECIFICDATA CONTENT
+    (14) spec_data -> . empty
+    (24) empty -> .
+
+  ! shift/reduce conflict for CLOSESCRIPT resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+  ! shift/reduce conflict for OPENSCRIPT resolved as shift
+  ! shift/reduce conflict for CATEGORY resolved as shift
+  ! shift/reduce conflict for SPECIFICDATA resolved as shift
+    CONTENT         shift and go to state 26
+    OPENSCRIPT      shift and go to state 23
+    CLOSESCRIPT     shift and go to state 25
+    CATEGORY        shift and go to state 27
+    SPECIFICDATA    shift and go to state 30
+
+  ! CLOSESCRIPT     [ reduce using rule 24 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 24 (empty -> .) ]
+  ! OPENSCRIPT      [ reduce using rule 24 (empty -> .) ]
+  ! CATEGORY        [ reduce using rule 24 (empty -> .) ]
+  ! SPECIFICDATA    [ reduce using rule 24 (empty -> .) ]
+
+    script_handle                  shift and go to state 40
+    spec_data                      shift and go to state 28
+    empty                          shift and go to state 29
+
+state 36
+
+    (10) dates -> CONTENT . CONTENT dates
+    (11) dates -> CONTENT . SPECIFICYAXIS
+
+    CONTENT         shift and go to state 41
+    SPECIFICYAXIS   shift and go to state 42
+
+
+state 37
+
+    (12) dates -> SPECIFICYAXIS .
+
+    CONTENT         reduce using rule 12 (dates -> SPECIFICYAXIS .)
+    OPENSCRIPT      reduce using rule 12 (dates -> SPECIFICYAXIS .)
+    CLOSESCRIPT     reduce using rule 12 (dates -> SPECIFICYAXIS .)
+    CATEGORY        reduce using rule 12 (dates -> SPECIFICYAXIS .)
+    SPECIFICDATA    reduce using rule 12 (dates -> SPECIFICYAXIS .)
+
+
+state 38
+
+    (19) script_handle -> spec_data script_handle .
+
+    CLOSESCRIPT     reduce using rule 19 (script_handle -> spec_data script_handle .)
+
+
+state 39
+
+    (13) spec_data -> SPECIFICDATA CONTENT .
+
+    CONTENT         reduce using rule 13 (spec_data -> SPECIFICDATA CONTENT .)
+    OPENSCRIPT      reduce using rule 13 (spec_data -> SPECIFICDATA CONTENT .)
+    CLOSESCRIPT     reduce using rule 13 (spec_data -> SPECIFICDATA CONTENT .)
+    CATEGORY        reduce using rule 13 (spec_data -> SPECIFICDATA CONTENT .)
+    SPECIFICDATA    reduce using rule 13 (spec_data -> SPECIFICDATA CONTENT .)
+
+
+state 40
+
+    (18) script_handle -> CATEGORY dates script_handle .
+
+    CLOSESCRIPT     reduce using rule 18 (script_handle -> CATEGORY dates script_handle .)
+
+
+state 41
+
+    (10) dates -> CONTENT CONTENT . dates
+    (10) dates -> . CONTENT CONTENT dates
+    (11) dates -> . CONTENT SPECIFICYAXIS
+    (12) dates -> . SPECIFICYAXIS
+
+    CONTENT         shift and go to state 36
+    SPECIFICYAXIS   shift and go to state 37
+
+    dates                          shift and go to state 43
+
+state 42
+
+    (11) dates -> CONTENT SPECIFICYAXIS .
+
+    CONTENT         reduce using rule 11 (dates -> CONTENT SPECIFICYAXIS .)
+    OPENSCRIPT      reduce using rule 11 (dates -> CONTENT SPECIFICYAXIS .)
+    CLOSESCRIPT     reduce using rule 11 (dates -> CONTENT SPECIFICYAXIS .)
+    CATEGORY        reduce using rule 11 (dates -> CONTENT SPECIFICYAXIS .)
+    SPECIFICDATA    reduce using rule 11 (dates -> CONTENT SPECIFICYAXIS .)
+
+
+state 43
+
+    (10) dates -> CONTENT CONTENT dates .
+
+    CONTENT         reduce using rule 10 (dates -> CONTENT CONTENT dates .)
+    OPENSCRIPT      reduce using rule 10 (dates -> CONTENT CONTENT dates .)
+    CLOSESCRIPT     reduce using rule 10 (dates -> CONTENT CONTENT dates .)
+    CATEGORY        reduce using rule 10 (dates -> CONTENT CONTENT dates .)
+    SPECIFICDATA    reduce using rule 10 (dates -> CONTENT CONTENT dates .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for CLOSESCRIPT in state 14 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 14 resolved as shift
+WARNING: shift/reduce conflict for OPENSCRIPT in state 14 resolved as shift
+WARNING: shift/reduce conflict for CATEGORY in state 14 resolved as shift
+WARNING: shift/reduce conflict for SPECIFICDATA in state 14 resolved as shift
+WARNING: shift/reduce conflict for CLOSESCRIPT in state 23 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 23 resolved as shift
+WARNING: shift/reduce conflict for OPENSCRIPT in state 23 resolved as shift
+WARNING: shift/reduce conflict for CATEGORY in state 23 resolved as shift
+WARNING: shift/reduce conflict for SPECIFICDATA in state 23 resolved as shift
+WARNING: shift/reduce conflict for CLOSESCRIPT in state 25 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 25 resolved as shift
+WARNING: shift/reduce conflict for OPENSCRIPT in state 25 resolved as shift
+WARNING: shift/reduce conflict for CATEGORY in state 25 resolved as shift
+WARNING: shift/reduce conflict for SPECIFICDATA in state 25 resolved as shift
+WARNING: shift/reduce conflict for CLOSESCRIPT in state 26 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 26 resolved as shift
+WARNING: shift/reduce conflict for OPENSCRIPT in state 26 resolved as shift
+WARNING: shift/reduce conflict for CATEGORY in state 26 resolved as shift
+WARNING: shift/reduce conflict for SPECIFICDATA in state 26 resolved as shift
+WARNING: shift/reduce conflict for CLOSESCRIPT in state 28 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 28 resolved as shift
+WARNING: shift/reduce conflict for OPENSCRIPT in state 28 resolved as shift
+WARNING: shift/reduce conflict for CATEGORY in state 28 resolved as shift
+WARNING: shift/reduce conflict for SPECIFICDATA in state 28 resolved as shift
+WARNING: shift/reduce conflict for CLOSESCRIPT in state 35 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 35 resolved as shift
+WARNING: shift/reduce conflict for OPENSCRIPT in state 35 resolved as shift
+WARNING: shift/reduce conflict for CATEGORY in state 35 resolved as shift
+WARNING: shift/reduce conflict for SPECIFICDATA in state 35 resolved as shift
+WARNING: reduce/reduce conflict in state 29 resolved using rule (spec_data -> empty)
+WARNING: rejected rule (script_handle -> empty) in state 29
+WARNING: Rule (script_handle -> empty) is never reduced

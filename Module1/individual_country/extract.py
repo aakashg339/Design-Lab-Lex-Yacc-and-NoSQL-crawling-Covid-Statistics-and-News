@@ -2,10 +2,10 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 ### DEFINING TOKENS###
-tokens = ('BEGINTABLE','BEGINTABLE2','BEGINTABLE3',
+tokens = ('BEGINTABLE', 'OPENSCRIPT', 'CLOSESCRIPT', 'CATEGORY', 'SPECIFICYAXIS', 'SPECIFICDATA',
           'OPENTABLE', 'CLOSETABLE', 'OPENROW', 'CLOSEROW', 'OPENLINK', 'IMAGE', 'OPENSMALL', 'CLOSESMALL', 'OPENBR', 'OPENBOLD', 'CLOSEBOLD',
-          'OPENHEADER', 'CLOSEHEADER', 'OPENHREF', 'CLOSEHREF', 'OPENNOBR','CLOSENOBR',
-          'CONTENT', 'OPENDATA', 'CLOSEDATA', 'OPENSPAN', 'OPENTABLEHEADER','CLOSETABLEHEADER',
+          'OPENHEADER', 'CLOSEHEADER', 'OPENHREF', 'CLOSEHREF', 'OPENNOBR', 'CLOSENOBR',
+          'CONTENT', 'OPENDATA', 'CLOSEDATA', 'OPENSPAN', 'OPENTABLEHEADER', 'CLOSETABLEHEADER',
           'CLOSESPAN', 'OPENDIV', 'CLOSEDIV', 'OPENSTYLE', 'CLOSESTYLE', 'GARBAGE', 'OPENH4', 'CLOSEH4', 'OPENH3', 'CLOSEH3', 'OPENTABLE_TABLE', 'CLOSETABLE_TABLE')
 t_ignore = ' \t\n'
 
@@ -13,19 +13,42 @@ t_ignore = ' \t\n'
 
 
 def t_BEGINTABLE(t):
-    # r'International.grounds</span>'
-    r'<div.class="tab-pane.".id="nav-yesterday2".role="tabpanel".aria-labelledby="nav-yesterday2-tab">'
+    r'Daily.New.Cases.in.'
     return t
 
+
+def t_SPECIFICYAXIS(t):
+    r'yAxis'
+    return t
+
+def t_SPECIFICDATA(t):
+    r'data'
+    return t
+
+def t_CATEGORY(t):
+    r'categories'
+    return t
+
+
+def t_OPENSCRIPT(t):
+    r'<script[^>]*>'
+    return t
+
+
+def t_CLOSESCRIPT(t):
+    r'</script[^>]*>'
+    return t
 
 
 def t_OPENNOBR(t):
     r'<nobr>'
     # return t
 
+
 def t_CLOSENOBR(t):
     r'</nobr>'
     # return t
+
 
 def t_OPENH4(t):
     r'<h4[^>]*>'
@@ -49,12 +72,12 @@ def t_CLOSETABLE_TABLE(t):
 
 def t_OPENH3(t):
     r'<h3[^>]*>'
-    # return t
+    return t
 
 
 def t_CLOSEH3(t):
     r'</h3[^>]*>'
-    # return t
+    return t
 
 
 def t_OPENTABLE(t):
@@ -76,6 +99,7 @@ def t_CLOSEROW(t):
     r'</tr[^>]*>'
     return t
 
+
 def t_OPENTABLEHEADER(t):
     r'<thead[^>]*>'
     return t
@@ -84,6 +108,7 @@ def t_OPENTABLEHEADER(t):
 def t_CLOSETABLEHEADER(t):
     r'</thead[^>]*>'
     return t
+
 
 def t_OPENHEADER(t):
     r'<th[^>]*>'
@@ -196,98 +221,53 @@ def p_skiptag(p):
     '''skiptag : CONTENT skiptag
                | OPENHREF skiptag
                | CLOSEHREF skiptag
+               | OPENDIV skiptag
+                | CLOSEDIV skiptag
+                | OPENH3 skiptag
+                | CLOSEH3 skiptag
                | empty'''
 
-
-def p_skiptable(p):
-    '''skiptable : OPENTABLE skiptable
-               | CLOSETABLE skiptable
-               | OPENDATA skiptable
-                | CLOSEDATA skiptable
-                | OPENROW skiptable
-                | CLOSEROW skiptable
-                | OPENDIV skiptable
-                | CLOSEDIV skiptable
-                | CONTENT skiptable
-               | empty'''
 
 # .................................................................................
 
-def p_headcontent(p):
-    '''headcontent : CONTENT CONTENT
-                    | CONTENT
-                    | CONTENT CONTENT CONTENT CONTENT
-                   | empty
+
+def p_dates(p):
+    ''' dates : CONTENT CONTENT dates
+              | CONTENT SPECIFICYAXIS
+              | SPECIFICYAXIS
     '''
+    if len(p)==4:
+        s=f'{p[1]} {p[2]}'
+        env_date.append(s)
+
+def p_spec_data(p):
+    '''spec_data : SPECIFICDATA CONTENT
+                    | empty'''
     if len(p)==3:
-        s=f'{p[1]} {p[2]}'
-        env.append(s)
-    if len(p)==2 and p[1] is not None:
-        s=f'{p[1]}'
-        env.append(s)
-    if len(p)==2 and p[1] is  None:
-        s=None
-        env.append(s)
-    if len(p)==5:
-        s=f'{p[1]}{p[3]} {p[4]}'
-        env.append(s)
-
-def p_thead_data(p):
-    '''thead_data : OPENHEADER headcontent CLOSEHEADER thead_data
-                  | empty
-    '''
+        # print("..")
+        # print(p[2])
+        s=p[2]
+        env_value.append(s)
 
 
-def p_table_header(p):
-    '''table_header : OPENROW thead_data CLOSEROW table_header
-                    | empty
-    '''
+def p_script_handle(p):
+    '''script_handle : CONTENT script_handle
+                     | OPENSCRIPT script_handle
+                     | CLOSESCRIPT script_handle
+                     | CATEGORY dates script_handle
+                     | spec_data script_handle
+                     | empty'''
 
 
-# .................................................................................
 
-def p_rowcontent(p):
-    '''rowcontent : CONTENT
-                    | CONTENT CONTENT 
-                    | empty
-    '''
-    if len(p)==3 :
-        s=f'{p[1]} {p[2]}'
-        env_2.append(s)
-    if len(p)==2 and p[1] is not None:
-        s=f'{p[1]}'
-        env_2.append(s)
-        # print(s)
-    if len(p)==2 and p[1] is None:
-        s=None
-        env_2.append(s)
-        # print(s)
+def p_handlescript(p):
+    '''handlescript : OPENSCRIPT script_handle CLOSESCRIPT
+                    | empty'''
 
-
-def p_row_data(p):
-    '''row_data : OPENDATA rowcontent CLOSEDATA row_data
-                | empty
-    '''
-
-
-def p_row_handler(p):
-    '''row_handler : OPENROW row_data CLOSEROW row_handler
-                    | empty
-    '''
-    # if len(p)==5:
-    #     s='######'
-    #     env_2.append(s)
-    
-def p_fulltable(p):
-    '''fulltable : OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable
-                | OPENTABLE row_handler CLOSETABLE fulltable
-
-                | empty
-
-    '''
 
 def p_table(p):
-    '''table : BEGINTABLE OPENDIV OPENTABLE_TABLE fulltable'''
+    '''table : BEGINTABLE skiptag handlescript'''
+
 
 def p_empty(p):
     '''empty :'''
@@ -306,25 +286,37 @@ def p_error(p):
 ######### DRIVER FUNCTION#######
 
 
-env= []
-env_2 = []
+env_value = []
+env_date = []
+
 
 def main():
     file_obj = open('./webpage.html', 'r', encoding="utf-8")
     data = file_obj.read()
     lexer = lex.lex()
-    lexer.input(data)
-    for tok in lexer:
-        print(tok)
+    # lexer.input(data)
+    # for tok in lexer:
+    #     print(tok)
     parser = yacc.yacc()
     parser.parse(data)
     file_obj.close()
-    print(env)
-    print(env_2)
 
+
+    x_1=env_value[0].split(',')
+    x_2=env_value[1].split(',')
+    x_3=env_value[2].split(',')
+    data=[]
+    for i in range(len(env_date)):
+        data.append([env_date[i],x_1[i],x_2[i],x_3[i]])
+
+    # print(data)
+
+    # # print((env_value[0]))
     with open("./output.txt", "w") as f:
-        for item in env_2:
-            f.write("%s\n" % item)
+        for i in data:
+            f.write(str(i))
+            f.write("\n")
+    
 
 
 if __name__ == '__main__':
