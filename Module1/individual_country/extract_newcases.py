@@ -300,6 +300,7 @@ def main():
     parser = yacc.yacc()
     parser.parse(data)
     file_obj.close()
+    sss=["new cases"]
 
 
     x_1=env_value[0].split(',')
@@ -310,7 +311,7 @@ def main():
     for i in range(len(env_date)):
         env_date[i]=env_date[i][0:(env_date[i].rindex(',')-1)]
         # data.append([env_date[i],x_1[i],x_2[i],x_3[i]])
-        data.append([env_date[i],x_1[i]])
+        data.append([env_date[i],sss[0],x_1[i]])
 
     # print(data)
 

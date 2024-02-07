@@ -1,11 +1,12 @@
 
 
-import os
+import os,sys
 import ply.lex as lex
 import ply.yacc as yacc
 from urllib.request import Request, urlopen
 
-user_country=(input("Enter the name of country: "))
+# user_country=(input("Enter the name of country: "))
+user_country=sys.argv[1]
 user_country=user_country.strip().lower()
 # user_country = "italy"
 
