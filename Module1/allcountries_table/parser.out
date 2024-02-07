@@ -1,0 +1,531 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BEGINTABLE2
+    BEGINTABLE3
+    CLOSEBOLD
+    CLOSEH3
+    CLOSEH4
+    CLOSENOBR
+    CLOSESMALL
+    CLOSESPAN
+    CLOSESTYLE
+    CLOSETABLE_TABLE
+    GARBAGE
+    IMAGE
+    OPENBOLD
+    OPENBR
+    OPENH3
+    OPENH4
+    OPENLINK
+    OPENNOBR
+    OPENSMALL
+    OPENSPAN
+    OPENSTYLE
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> table
+Rule 2     skiptag -> CONTENT skiptag
+Rule 3     skiptag -> OPENHREF skiptag
+Rule 4     skiptag -> CLOSEHREF skiptag
+Rule 5     skiptag -> empty
+Rule 6     skiptable -> OPENTABLE skiptable
+Rule 7     skiptable -> CLOSETABLE skiptable
+Rule 8     skiptable -> OPENDATA skiptable
+Rule 9     skiptable -> CLOSEDATA skiptable
+Rule 10    skiptable -> OPENROW skiptable
+Rule 11    skiptable -> CLOSEROW skiptable
+Rule 12    skiptable -> OPENDIV skiptable
+Rule 13    skiptable -> CLOSEDIV skiptable
+Rule 14    skiptable -> CONTENT skiptable
+Rule 15    skiptable -> empty
+Rule 16    headcontent -> CONTENT CONTENT
+Rule 17    headcontent -> CONTENT
+Rule 18    headcontent -> CONTENT CONTENT CONTENT CONTENT
+Rule 19    headcontent -> empty
+Rule 20    thead_data -> OPENHEADER headcontent CLOSEHEADER thead_data
+Rule 21    thead_data -> empty
+Rule 22    table_header -> OPENROW thead_data CLOSEROW table_header
+Rule 23    table_header -> empty
+Rule 24    rowcontent -> CONTENT
+Rule 25    rowcontent -> CONTENT CONTENT
+Rule 26    rowcontent -> empty
+Rule 27    row_data -> OPENDATA rowcontent CLOSEDATA row_data
+Rule 28    row_data -> empty
+Rule 29    row_handler -> OPENROW row_data CLOSEROW row_handler
+Rule 30    row_handler -> empty
+Rule 31    fulltable -> OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable
+Rule 32    fulltable -> OPENTABLE row_handler CLOSETABLE fulltable
+Rule 33    fulltable -> empty
+Rule 34    table -> BEGINTABLE OPENDIV OPENTABLE_TABLE fulltable
+Rule 35    empty -> <empty>
+Rule 36    content -> CONTENT
+Rule 37    content -> empty
+
+Terminals, with rules where they appear
+
+BEGINTABLE           : 34
+BEGINTABLE2          : 
+BEGINTABLE3          : 
+CLOSEBOLD            : 
+CLOSEDATA            : 9 27
+CLOSEDIV             : 13
+CLOSEH3              : 
+CLOSEH4              : 
+CLOSEHEADER          : 20
+CLOSEHREF            : 4
+CLOSENOBR            : 
+CLOSEROW             : 11 22 29
+CLOSESMALL           : 
+CLOSESPAN            : 
+CLOSESTYLE           : 
+CLOSETABLE           : 7 32
+CLOSETABLEHEADER     : 31
+CLOSETABLE_TABLE     : 
+CONTENT              : 2 14 16 16 17 18 18 18 18 24 25 25 36
+GARBAGE              : 
+IMAGE                : 
+OPENBOLD             : 
+OPENBR               : 
+OPENDATA             : 8 27
+OPENDIV              : 12 34
+OPENH3               : 
+OPENH4               : 
+OPENHEADER           : 20
+OPENHREF             : 3
+OPENLINK             : 
+OPENNOBR             : 
+OPENROW              : 10 22 29
+OPENSMALL            : 
+OPENSPAN             : 
+OPENSTYLE            : 
+OPENTABLE            : 6 32
+OPENTABLEHEADER      : 31
+OPENTABLE_TABLE      : 34
+error                : 
+
+Nonterminals, with rules where they appear
+
+content              : 
+empty                : 5 15 19 21 23 26 28 30 33 37
+fulltable            : 31 32 34
+headcontent          : 20
+row_data             : 27 29
+row_handler          : 29 32
+rowcontent           : 27
+skiptable            : 6 7 8 9 10 11 12 13 14
+skiptag              : 2 3 4
+start                : 0
+table                : 1
+table_header         : 22 31
+thead_data           : 20 22
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . table
+    (34) table -> . BEGINTABLE OPENDIV OPENTABLE_TABLE fulltable
+
+    BEGINTABLE      shift and go to state 3
+
+    start                          shift and go to state 1
+    table                          shift and go to state 2
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> table .
+
+    $end            reduce using rule 1 (start -> table .)
+
+
+state 3
+
+    (34) table -> BEGINTABLE . OPENDIV OPENTABLE_TABLE fulltable
+
+    OPENDIV         shift and go to state 4
+
+
+state 4
+
+    (34) table -> BEGINTABLE OPENDIV . OPENTABLE_TABLE fulltable
+
+    OPENTABLE_TABLE shift and go to state 5
+
+
+state 5
+
+    (34) table -> BEGINTABLE OPENDIV OPENTABLE_TABLE . fulltable
+    (31) fulltable -> . OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable
+    (32) fulltable -> . OPENTABLE row_handler CLOSETABLE fulltable
+    (33) fulltable -> . empty
+    (35) empty -> .
+
+    OPENTABLEHEADER shift and go to state 7
+    OPENTABLE       shift and go to state 8
+    $end            reduce using rule 35 (empty -> .)
+
+    fulltable                      shift and go to state 6
+    empty                          shift and go to state 9
+
+state 6
+
+    (34) table -> BEGINTABLE OPENDIV OPENTABLE_TABLE fulltable .
+
+    $end            reduce using rule 34 (table -> BEGINTABLE OPENDIV OPENTABLE_TABLE fulltable .)
+
+
+state 7
+
+    (31) fulltable -> OPENTABLEHEADER . table_header CLOSETABLEHEADER fulltable
+    (22) table_header -> . OPENROW thead_data CLOSEROW table_header
+    (23) table_header -> . empty
+    (35) empty -> .
+
+    OPENROW         shift and go to state 11
+    CLOSETABLEHEADER reduce using rule 35 (empty -> .)
+
+    table_header                   shift and go to state 10
+    empty                          shift and go to state 12
+
+state 8
+
+    (32) fulltable -> OPENTABLE . row_handler CLOSETABLE fulltable
+    (29) row_handler -> . OPENROW row_data CLOSEROW row_handler
+    (30) row_handler -> . empty
+    (35) empty -> .
+
+    OPENROW         shift and go to state 14
+    CLOSETABLE      reduce using rule 35 (empty -> .)
+
+    row_handler                    shift and go to state 13
+    empty                          shift and go to state 15
+
+state 9
+
+    (33) fulltable -> empty .
+
+    $end            reduce using rule 33 (fulltable -> empty .)
+
+
+state 10
+
+    (31) fulltable -> OPENTABLEHEADER table_header . CLOSETABLEHEADER fulltable
+
+    CLOSETABLEHEADER shift and go to state 16
+
+
+state 11
+
+    (22) table_header -> OPENROW . thead_data CLOSEROW table_header
+    (20) thead_data -> . OPENHEADER headcontent CLOSEHEADER thead_data
+    (21) thead_data -> . empty
+    (35) empty -> .
+
+    OPENHEADER      shift and go to state 18
+    CLOSEROW        reduce using rule 35 (empty -> .)
+
+    thead_data                     shift and go to state 17
+    empty                          shift and go to state 19
+
+state 12
+
+    (23) table_header -> empty .
+
+    CLOSETABLEHEADER reduce using rule 23 (table_header -> empty .)
+
+
+state 13
+
+    (32) fulltable -> OPENTABLE row_handler . CLOSETABLE fulltable
+
+    CLOSETABLE      shift and go to state 20
+
+
+state 14
+
+    (29) row_handler -> OPENROW . row_data CLOSEROW row_handler
+    (27) row_data -> . OPENDATA rowcontent CLOSEDATA row_data
+    (28) row_data -> . empty
+    (35) empty -> .
+
+    OPENDATA        shift and go to state 22
+    CLOSEROW        reduce using rule 35 (empty -> .)
+
+    row_data                       shift and go to state 21
+    empty                          shift and go to state 23
+
+state 15
+
+    (30) row_handler -> empty .
+
+    CLOSETABLE      reduce using rule 30 (row_handler -> empty .)
+
+
+state 16
+
+    (31) fulltable -> OPENTABLEHEADER table_header CLOSETABLEHEADER . fulltable
+    (31) fulltable -> . OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable
+    (32) fulltable -> . OPENTABLE row_handler CLOSETABLE fulltable
+    (33) fulltable -> . empty
+    (35) empty -> .
+
+    OPENTABLEHEADER shift and go to state 7
+    OPENTABLE       shift and go to state 8
+    $end            reduce using rule 35 (empty -> .)
+
+    fulltable                      shift and go to state 24
+    empty                          shift and go to state 9
+
+state 17
+
+    (22) table_header -> OPENROW thead_data . CLOSEROW table_header
+
+    CLOSEROW        shift and go to state 25
+
+
+state 18
+
+    (20) thead_data -> OPENHEADER . headcontent CLOSEHEADER thead_data
+    (16) headcontent -> . CONTENT CONTENT
+    (17) headcontent -> . CONTENT
+    (18) headcontent -> . CONTENT CONTENT CONTENT CONTENT
+    (19) headcontent -> . empty
+    (35) empty -> .
+
+    CONTENT         shift and go to state 27
+    CLOSEHEADER     reduce using rule 35 (empty -> .)
+
+    headcontent                    shift and go to state 26
+    empty                          shift and go to state 28
+
+state 19
+
+    (21) thead_data -> empty .
+
+    CLOSEROW        reduce using rule 21 (thead_data -> empty .)
+
+
+state 20
+
+    (32) fulltable -> OPENTABLE row_handler CLOSETABLE . fulltable
+    (31) fulltable -> . OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable
+    (32) fulltable -> . OPENTABLE row_handler CLOSETABLE fulltable
+    (33) fulltable -> . empty
+    (35) empty -> .
+
+    OPENTABLEHEADER shift and go to state 7
+    OPENTABLE       shift and go to state 8
+    $end            reduce using rule 35 (empty -> .)
+
+    fulltable                      shift and go to state 29
+    empty                          shift and go to state 9
+
+state 21
+
+    (29) row_handler -> OPENROW row_data . CLOSEROW row_handler
+
+    CLOSEROW        shift and go to state 30
+
+
+state 22
+
+    (27) row_data -> OPENDATA . rowcontent CLOSEDATA row_data
+    (24) rowcontent -> . CONTENT
+    (25) rowcontent -> . CONTENT CONTENT
+    (26) rowcontent -> . empty
+    (35) empty -> .
+
+    CONTENT         shift and go to state 32
+    CLOSEDATA       reduce using rule 35 (empty -> .)
+
+    rowcontent                     shift and go to state 31
+    empty                          shift and go to state 33
+
+state 23
+
+    (28) row_data -> empty .
+
+    CLOSEROW        reduce using rule 28 (row_data -> empty .)
+
+
+state 24
+
+    (31) fulltable -> OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable .
+
+    $end            reduce using rule 31 (fulltable -> OPENTABLEHEADER table_header CLOSETABLEHEADER fulltable .)
+
+
+state 25
+
+    (22) table_header -> OPENROW thead_data CLOSEROW . table_header
+    (22) table_header -> . OPENROW thead_data CLOSEROW table_header
+    (23) table_header -> . empty
+    (35) empty -> .
+
+    OPENROW         shift and go to state 11
+    CLOSETABLEHEADER reduce using rule 35 (empty -> .)
+
+    table_header                   shift and go to state 34
+    empty                          shift and go to state 12
+
+state 26
+
+    (20) thead_data -> OPENHEADER headcontent . CLOSEHEADER thead_data
+
+    CLOSEHEADER     shift and go to state 35
+
+
+state 27
+
+    (16) headcontent -> CONTENT . CONTENT
+    (17) headcontent -> CONTENT .
+    (18) headcontent -> CONTENT . CONTENT CONTENT CONTENT
+
+    CONTENT         shift and go to state 36
+    CLOSEHEADER     reduce using rule 17 (headcontent -> CONTENT .)
+
+
+state 28
+
+    (19) headcontent -> empty .
+
+    CLOSEHEADER     reduce using rule 19 (headcontent -> empty .)
+
+
+state 29
+
+    (32) fulltable -> OPENTABLE row_handler CLOSETABLE fulltable .
+
+    $end            reduce using rule 32 (fulltable -> OPENTABLE row_handler CLOSETABLE fulltable .)
+
+
+state 30
+
+    (29) row_handler -> OPENROW row_data CLOSEROW . row_handler
+    (29) row_handler -> . OPENROW row_data CLOSEROW row_handler
+    (30) row_handler -> . empty
+    (35) empty -> .
+
+    OPENROW         shift and go to state 14
+    CLOSETABLE      reduce using rule 35 (empty -> .)
+
+    row_handler                    shift and go to state 37
+    empty                          shift and go to state 15
+
+state 31
+
+    (27) row_data -> OPENDATA rowcontent . CLOSEDATA row_data
+
+    CLOSEDATA       shift and go to state 38
+
+
+state 32
+
+    (24) rowcontent -> CONTENT .
+    (25) rowcontent -> CONTENT . CONTENT
+
+    CLOSEDATA       reduce using rule 24 (rowcontent -> CONTENT .)
+    CONTENT         shift and go to state 39
+
+
+state 33
+
+    (26) rowcontent -> empty .
+
+    CLOSEDATA       reduce using rule 26 (rowcontent -> empty .)
+
+
+state 34
+
+    (22) table_header -> OPENROW thead_data CLOSEROW table_header .
+
+    CLOSETABLEHEADER reduce using rule 22 (table_header -> OPENROW thead_data CLOSEROW table_header .)
+
+
+state 35
+
+    (20) thead_data -> OPENHEADER headcontent CLOSEHEADER . thead_data
+    (20) thead_data -> . OPENHEADER headcontent CLOSEHEADER thead_data
+    (21) thead_data -> . empty
+    (35) empty -> .
+
+    OPENHEADER      shift and go to state 18
+    CLOSEROW        reduce using rule 35 (empty -> .)
+
+    thead_data                     shift and go to state 40
+    empty                          shift and go to state 19
+
+state 36
+
+    (16) headcontent -> CONTENT CONTENT .
+    (18) headcontent -> CONTENT CONTENT . CONTENT CONTENT
+
+    CLOSEHEADER     reduce using rule 16 (headcontent -> CONTENT CONTENT .)
+    CONTENT         shift and go to state 41
+
+
+state 37
+
+    (29) row_handler -> OPENROW row_data CLOSEROW row_handler .
+
+    CLOSETABLE      reduce using rule 29 (row_handler -> OPENROW row_data CLOSEROW row_handler .)
+
+
+state 38
+
+    (27) row_data -> OPENDATA rowcontent CLOSEDATA . row_data
+    (27) row_data -> . OPENDATA rowcontent CLOSEDATA row_data
+    (28) row_data -> . empty
+    (35) empty -> .
+
+    OPENDATA        shift and go to state 22
+    CLOSEROW        reduce using rule 35 (empty -> .)
+
+    row_data                       shift and go to state 42
+    empty                          shift and go to state 23
+
+state 39
+
+    (25) rowcontent -> CONTENT CONTENT .
+
+    CLOSEDATA       reduce using rule 25 (rowcontent -> CONTENT CONTENT .)
+
+
+state 40
+
+    (20) thead_data -> OPENHEADER headcontent CLOSEHEADER thead_data .
+
+    CLOSEROW        reduce using rule 20 (thead_data -> OPENHEADER headcontent CLOSEHEADER thead_data .)
+
+
+state 41
+
+    (18) headcontent -> CONTENT CONTENT CONTENT . CONTENT
+
+    CONTENT         shift and go to state 43
+
+
+state 42
+
+    (27) row_data -> OPENDATA rowcontent CLOSEDATA row_data .
+
+    CLOSEROW        reduce using rule 27 (row_data -> OPENDATA rowcontent CLOSEDATA row_data .)
+
+
+state 43
+
+    (18) headcontent -> CONTENT CONTENT CONTENT CONTENT .
+
+    CLOSEHEADER     reduce using rule 18 (headcontent -> CONTENT CONTENT CONTENT CONTENT .)
+

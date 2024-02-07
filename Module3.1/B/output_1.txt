@@ -1,0 +1,5 @@
+              	 Feb 18, 2022	   Jan 30, 2022		Percentage chnage
+active cases  	      3342259	        6852832		105.04%
+new cases     	        82553	         249448		202.17%
+new deaths    	          304	            127		-58.22%
+new recoveries	        82553	         249448		202.17%
