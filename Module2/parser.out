@@ -1,0 +1,95 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CLOSEDIV
+    CLOSEHEADER
+    CLOSELI
+    CLOSEUL
+    GARBAGE
+    OPENDIV
+    OPENHEADER
+    OPENUL
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> orderedlist
+Rule 2     orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF
+Rule 3     empty -> <empty>
+
+Terminals, with rules where they appear
+
+CLOSEDIV             : 
+CLOSEHEADER          : 
+CLOSEHREF            : 2
+CLOSELI              : 
+CLOSEUL              : 
+CONTENT              : 2
+GARBAGE              : 
+OPENDIV              : 
+OPENHEADER           : 
+OPENHREF             : 2
+OPENLI               : 2
+OPENUL               : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+empty                : 
+orderedlist          : 1
+start                : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . orderedlist
+    (2) orderedlist -> . OPENLI OPENHREF CONTENT CLOSEHREF
+
+    OPENLI          shift and go to state 3
+
+    start                          shift and go to state 1
+    orderedlist                    shift and go to state 2
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> orderedlist .
+
+    $end            reduce using rule 1 (start -> orderedlist .)
+
+
+state 3
+
+    (2) orderedlist -> OPENLI . OPENHREF CONTENT CLOSEHREF
+
+    OPENHREF        shift and go to state 4
+
+
+state 4
+
+    (2) orderedlist -> OPENLI OPENHREF . CONTENT CLOSEHREF
+
+    CONTENT         shift and go to state 5
+
+
+state 5
+
+    (2) orderedlist -> OPENLI OPENHREF CONTENT . CLOSEHREF
+
+    CLOSEHREF       shift and go to state 6
+
+
+state 6
+
+    (2) orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF .
+
+    $end            reduce using rule 2 (orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF .)
+
