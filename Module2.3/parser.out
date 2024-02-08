@@ -1,0 +1,332 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BEGINTABLE
+    CLOSEDATA
+    CLOSEDIV
+    CLOSEHEADER
+    CLOSEP
+    CLOSEROW
+    CLOSESPAN
+    CLOSESTYLE
+    CLOSETABLE
+    GARBAGE
+    OPENDATA
+    OPENDIV
+    OPENHEADER
+    OPENP
+    OPENROW
+    OPENSPAN
+    OPENSTYLE
+    OPENTABLE
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> month
+Rule 2     start -> monthDataul
+Rule 3     start -> empty
+Rule 4     skiptag -> CONTENT skiptag
+Rule 5     skiptag -> OPENHREF skiptag
+Rule 6     skiptag -> CLOSEHREF skiptag
+Rule 7     skiptag -> empty
+Rule 8     month -> OPENHTWO CONTENT CONTENT CLOSEHTWO empty
+Rule 9     month -> OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul
+Rule 10    month -> <empty>
+Rule 11    monthDateData -> OPENHTHREE CONTENT CONTENT CLOSEHTHREE empty
+Rule 12    monthDataul -> OPENUL dataLi CLOSEUL monthDataul
+Rule 13    monthDataul -> empty
+Rule 14    dataLi -> OPENLI dataInEachLi CLOSELI dataLi
+Rule 15    dataLi -> empty
+Rule 16    dataInEachLi -> CONTENT dataInEachLi
+Rule 17    dataInEachLi -> empty
+Rule 18    empty -> <empty>
+
+Terminals, with rules where they appear
+
+BEGINTABLE           : 
+CLOSEDATA            : 
+CLOSEDIV             : 
+CLOSEHEADER          : 
+CLOSEHREF            : 6
+CLOSEHTHREE          : 11
+CLOSEHTWO            : 8 9
+CLOSELI              : 14
+CLOSEP               : 
+CLOSEROW             : 
+CLOSESPAN            : 
+CLOSESTYLE           : 
+CLOSETABLE           : 
+CLOSEUL              : 12
+CONTENT              : 4 8 8 9 9 11 11 16
+GARBAGE              : 
+OPENDATA             : 
+OPENDIV              : 
+OPENHEADER           : 
+OPENHREF             : 5
+OPENHTHREE           : 11
+OPENHTWO             : 8 9
+OPENLI               : 14
+OPENP                : 
+OPENROW              : 
+OPENSPAN             : 
+OPENSTYLE            : 
+OPENTABLE            : 
+OPENUL               : 12
+error                : 
+
+Nonterminals, with rules where they appear
+
+dataInEachLi         : 14 16
+dataLi               : 12 14
+empty                : 3 7 8 11 13 15 17
+month                : 1
+monthDataul          : 2 9 12
+monthDateData        : 
+skiptag              : 4 5 6
+start                : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . month
+    (2) start -> . monthDataul
+    (3) start -> . empty
+    (8) month -> . OPENHTWO CONTENT CONTENT CLOSEHTWO empty
+    (9) month -> . OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul
+    (10) month -> .
+    (12) monthDataul -> . OPENUL dataLi CLOSEUL monthDataul
+    (13) monthDataul -> . empty
+    (18) empty -> .
+
+  ! reduce/reduce conflict for $end resolved using rule 10 (month -> .)
+    OPENHTWO        shift and go to state 5
+    $end            reduce using rule 10 (month -> .)
+    OPENUL          shift and go to state 6
+
+  ! $end            [ reduce using rule 18 (empty -> .) ]
+
+    start                          shift and go to state 1
+    month                          shift and go to state 2
+    monthDataul                    shift and go to state 3
+    empty                          shift and go to state 4
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> month .
+
+    $end            reduce using rule 1 (start -> month .)
+
+
+state 3
+
+    (2) start -> monthDataul .
+
+    $end            reduce using rule 2 (start -> monthDataul .)
+
+
+state 4
+
+    (3) start -> empty .
+    (13) monthDataul -> empty .
+
+  ! reduce/reduce conflict for $end resolved using rule 3 (start -> empty .)
+    $end            reduce using rule 3 (start -> empty .)
+
+  ! $end            [ reduce using rule 13 (monthDataul -> empty .) ]
+
+
+state 5
+
+    (8) month -> OPENHTWO . CONTENT CONTENT CLOSEHTWO empty
+    (9) month -> OPENHTWO . CONTENT CONTENT CLOSEHTWO monthDataul
+
+    CONTENT         shift and go to state 7
+
+
+state 6
+
+    (12) monthDataul -> OPENUL . dataLi CLOSEUL monthDataul
+    (14) dataLi -> . OPENLI dataInEachLi CLOSELI dataLi
+    (15) dataLi -> . empty
+    (18) empty -> .
+
+    OPENLI          shift and go to state 9
+    CLOSEUL         reduce using rule 18 (empty -> .)
+
+    dataLi                         shift and go to state 8
+    empty                          shift and go to state 10
+
+state 7
+
+    (8) month -> OPENHTWO CONTENT . CONTENT CLOSEHTWO empty
+    (9) month -> OPENHTWO CONTENT . CONTENT CLOSEHTWO monthDataul
+
+    CONTENT         shift and go to state 11
+
+
+state 8
+
+    (12) monthDataul -> OPENUL dataLi . CLOSEUL monthDataul
+
+    CLOSEUL         shift and go to state 12
+
+
+state 9
+
+    (14) dataLi -> OPENLI . dataInEachLi CLOSELI dataLi
+    (16) dataInEachLi -> . CONTENT dataInEachLi
+    (17) dataInEachLi -> . empty
+    (18) empty -> .
+
+    CONTENT         shift and go to state 14
+    CLOSELI         reduce using rule 18 (empty -> .)
+
+    dataInEachLi                   shift and go to state 13
+    empty                          shift and go to state 15
+
+state 10
+
+    (15) dataLi -> empty .
+
+    CLOSEUL         reduce using rule 15 (dataLi -> empty .)
+
+
+state 11
+
+    (8) month -> OPENHTWO CONTENT CONTENT . CLOSEHTWO empty
+    (9) month -> OPENHTWO CONTENT CONTENT . CLOSEHTWO monthDataul
+
+    CLOSEHTWO       shift and go to state 16
+
+
+state 12
+
+    (12) monthDataul -> OPENUL dataLi CLOSEUL . monthDataul
+    (12) monthDataul -> . OPENUL dataLi CLOSEUL monthDataul
+    (13) monthDataul -> . empty
+    (18) empty -> .
+
+    OPENUL          shift and go to state 6
+    $end            reduce using rule 18 (empty -> .)
+
+    monthDataul                    shift and go to state 17
+    empty                          shift and go to state 18
+
+state 13
+
+    (14) dataLi -> OPENLI dataInEachLi . CLOSELI dataLi
+
+    CLOSELI         shift and go to state 19
+
+
+state 14
+
+    (16) dataInEachLi -> CONTENT . dataInEachLi
+    (16) dataInEachLi -> . CONTENT dataInEachLi
+    (17) dataInEachLi -> . empty
+    (18) empty -> .
+
+    CONTENT         shift and go to state 14
+    CLOSELI         reduce using rule 18 (empty -> .)
+
+    dataInEachLi                   shift and go to state 20
+    empty                          shift and go to state 15
+
+state 15
+
+    (17) dataInEachLi -> empty .
+
+    CLOSELI         reduce using rule 17 (dataInEachLi -> empty .)
+
+
+state 16
+
+    (8) month -> OPENHTWO CONTENT CONTENT CLOSEHTWO . empty
+    (9) month -> OPENHTWO CONTENT CONTENT CLOSEHTWO . monthDataul
+    (18) empty -> .
+    (12) monthDataul -> . OPENUL dataLi CLOSEUL monthDataul
+    (13) monthDataul -> . empty
+
+    $end            reduce using rule 18 (empty -> .)
+    OPENUL          shift and go to state 6
+
+    empty                          shift and go to state 21
+    monthDataul                    shift and go to state 22
+
+state 17
+
+    (12) monthDataul -> OPENUL dataLi CLOSEUL monthDataul .
+
+    $end            reduce using rule 12 (monthDataul -> OPENUL dataLi CLOSEUL monthDataul .)
+
+
+state 18
+
+    (13) monthDataul -> empty .
+
+    $end            reduce using rule 13 (monthDataul -> empty .)
+
+
+state 19
+
+    (14) dataLi -> OPENLI dataInEachLi CLOSELI . dataLi
+    (14) dataLi -> . OPENLI dataInEachLi CLOSELI dataLi
+    (15) dataLi -> . empty
+    (18) empty -> .
+
+    OPENLI          shift and go to state 9
+    CLOSEUL         reduce using rule 18 (empty -> .)
+
+    dataLi                         shift and go to state 23
+    empty                          shift and go to state 10
+
+state 20
+
+    (16) dataInEachLi -> CONTENT dataInEachLi .
+
+    CLOSELI         reduce using rule 16 (dataInEachLi -> CONTENT dataInEachLi .)
+
+
+state 21
+
+    (8) month -> OPENHTWO CONTENT CONTENT CLOSEHTWO empty .
+    (13) monthDataul -> empty .
+
+  ! reduce/reduce conflict for $end resolved using rule 8 (month -> OPENHTWO CONTENT CONTENT CLOSEHTWO empty .)
+    $end            reduce using rule 8 (month -> OPENHTWO CONTENT CONTENT CLOSEHTWO empty .)
+
+  ! $end            [ reduce using rule 13 (monthDataul -> empty .) ]
+
+
+state 22
+
+    (9) month -> OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul .
+
+    $end            reduce using rule 9 (month -> OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul .)
+
+
+state 23
+
+    (14) dataLi -> OPENLI dataInEachLi CLOSELI dataLi .
+
+    CLOSEUL         reduce using rule 14 (dataLi -> OPENLI dataInEachLi CLOSELI dataLi .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: reduce/reduce conflict in state 0 resolved using rule (month -> <empty>)
+WARNING: rejected rule (empty -> <empty>) in state 0
+WARNING: reduce/reduce conflict in state 4 resolved using rule (start -> empty)
+WARNING: rejected rule (monthDataul -> empty) in state 4
+WARNING: reduce/reduce conflict in state 21 resolved using rule (month -> OPENHTWO CONTENT CONTENT CLOSEHTWO empty)
+WARNING: rejected rule (monthDataul -> empty) in state 21
