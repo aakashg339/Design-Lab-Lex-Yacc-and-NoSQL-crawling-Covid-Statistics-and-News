@@ -30,19 +30,20 @@ pattern = re.compile(r'<a href="/wiki/Timeline_of_the_COVID-19_pandemic_in_'+cou
 dataUrls = {}
 
 for country in countries:
-    dataUrls[country] = []
-
-for country in countries:
     pattern = re.compile(r'<a href="/wiki/Timeline_of_the_COVID-19_pandemic_in_'+country+'_\((.*?)\)"')
     # Get the matched pattern
     matches = pattern.findall(webpage)
     # Construct the data URL for each match
     for match in matches:
         urlForCountry = "https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_"+country+"_(" + match + ")"
+        # extract January May_2022 from January%E2%80%93May_2020 
+        match = match.replace("%E2%80%93", "_")
 
-        # Check if the URL is already present in the list
-        if urlForCountry not in dataUrls[country]:
-            dataUrls[country].append("https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_"+country+"_(" + match + ")")
+        # key is country(match)
+        key = country + '(' + match + ')'
+
+        # Check if the URL is already present in the list. Also check if the key is already present in the dictionary
+        dataUrls[key] = urlForCountry
 
 # # Print the data URLs
 # for country in countries:
@@ -52,32 +53,26 @@ for country in countries:
 
 # Write the data URLs to a file so that it is read by the next program as key-value pairs
 with open("dataUrls.txt", "w") as file:
-    # Country:URL1,URL2,URL3
-    for country in countries:
-        file.write(country + ":")
-        # Not including the last comma
-        for url in dataUrls[country][:-1]:
-            file.write(url + ",")
-        file.write(dataUrls[country][-1] + "\n")
-    file.close()
+    # key:URL1,URL2,URL3 for dataUrls
+    for key in dataUrls:
+        file.write(key + "|" + dataUrls[key] + "\n")
 
 # Fetch the data from the URLs and save it in a file in folder named "webpages"
 # Create a folder named "webpages" if it does not exist
 if not os.path.exists("webpages"):
     os.makedirs("webpages")
 
-for country in countries:
-    for url in dataUrls[country]:
-        # Requesting the webpage
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+for key in dataUrls:
+    # Requesting the webpage
+    req = Request(dataUrls[key], headers={'User-Agent': 'Mozilla/5.0'})
 
-        # Reading the webpage
-        webpage = urlopen(req).read()
+    # Reading the webpage
+    webpage = urlopen(req).read()
 
-        # Decoding the webpage
-        webpage = webpage.decode('utf-8')
+    # Decoding the webpage
+    webpage = webpage.decode('utf-8')
 
-        # Save the webpage in a file
-        with open("webpages/"+country+"_"+url.split("/")[-1]+".html", "w") as file:
-            file.write(webpage)
-            file.close()
+    # Write the webpage to a file
+    with open("webpages/"+key+".html", "w") as file:
+        file.write(webpage)
+        file.close()

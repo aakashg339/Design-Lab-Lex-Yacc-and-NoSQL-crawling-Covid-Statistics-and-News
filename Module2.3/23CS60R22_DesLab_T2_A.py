@@ -1,5 +1,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
+import re
+import os
 
 ###DEFINING TOKENS###
 tokens = ('BEGINTABLE', 
@@ -125,10 +127,12 @@ def t_error(t):
 											#GRAMMAR RULES
 text = ""
 textList = []
+textDict = {}
 
 def p_start(p):
     '''start : month
              | monthDataul
+             | monthDateData
              | empty'''
     p[0] = p[1]
 
@@ -146,16 +150,26 @@ def p_month(p):
     global text
 
     if len(p) == 6:
+        # print(p[2])
         text = p[2] + "\n" + text
 
 def p_monthDateData(p):
-    '''monthDateData : OPENHTHREE CONTENT CONTENT CLOSEHTHREE empty '''
-    print("-> monthDateData parsed")
+    '''monthDateData : OPENHTHREE CONTENT CONTENT CLOSEHTHREE OPENP'''
+    #print("-> monthDateData parsed")
+    # if len(p) == 6:
+    #     print(p[2])
+
+    global text
+    text = p[2] + "," + text + ","
+
+def p_openpData(p):
+    '''openpData : OPENP dataInEachLi CLOSEP monthDataul'''
+    print("-> openpData parsed")
 
 def p_monthDataul(p):
     '''monthDataul : OPENUL dataLi CLOSEUL monthDataul
                    | empty'''
-    #print("-> monthDataul parsed")
+    print("-> monthDataul parsed")
 
 def p_dataLi(p):
     '''dataLi : OPENLI dataInEachLi CLOSELI dataLi
@@ -244,10 +258,11 @@ def p_error(p):
     pass
 
 #########DRIVER FUNCTION#######
-def main():
+def readAndParse(filename):
     try:
         # Opening file India_Timeline_of_the_COVID-19_pandemic_in_India_(January%E2%80%93May_2020).html in folder webpages
-        file_obj= open("webpages/India_Timeline_of_the_COVID-19_pandemic_in_India_(January%E2%80%93May_2020).html", "r")
+        urls = "webpages/"+filename+".html"
+        file_obj= open(urls, "r")
         data=file_obj.read()
         file_obj.close()
         lexer = lex.lex()
@@ -260,14 +275,68 @@ def main():
             file.close()
         # for tok in lexer:
         #     print(tok)
-        parser = yacc.yacc()
+        parser = yacc.yacc(write_tables=0)
+        #parser.parse(data, debug=1)
         parser.parse(data)
     except IOError:
         print("Error opening file webpage.html")
 
     global text
     global textList
-    print(textList)
+    
+    # Create folder  if not exists name 'extractedData'
+    if not os.path.exists("extractedData"):
+        os.makedirs("extractedData")
+    # write data to file
+    filename = "extractedData/"+filename+".txt"
+    with open(filename, "w") as file:
+        for i in textList:
+            # Seperate each i as per a regex pattern. Pattern would be something like On 7 March, <some text> In place of march and date there can be other months and dates as well. In place of some text there can be other valid sentences.
+            regexSeperateSentence = re.compile(r'On\s\d+\s\w+')
+            matches = regexSeperateSentence.findall(i)
+
+            if len(matches) == 0:
+                file.write(i + "\n")
+                continue
+
+            # write the matches to file in reverse order
+            for match in matches[::-1]:
+                # find the complete sentence and write it to file
+                regexEachSentence = re.compile(r''+match+'.*')
+                match = regexEachSentence.findall(i)[0]
+                file.write(match + "\n")
+                # remove the sentence from i
+                i = i.replace(match, "")
+
+        file.close()
+
+    text = ""
+    textList = []
+
+def main():
+    # Read keys from filename (key) dataUrls.txt
+    fileNames = []
+    try:
+        with open("dataUrls.txt", "r") as file:
+            data = file.read()
+            file.close()
+        # Split the data into key-value pairs
+        data = data.split("\n")
+        # Create a dictionary to store the key-value pairs
+        
+        for d in data:
+            if d == "":
+                continue
+            key, value = d.split("|")
+            fileNames.append(key)
+    except IOError:
+        print("Error opening file dataUrls.txt")
+
+    print(fileNames)
+
+    # for each filename, read and parse the file
+    for filename in fileNames:
+        readAndParse(filename)
 
 if __name__ == '__main__':
     main()
