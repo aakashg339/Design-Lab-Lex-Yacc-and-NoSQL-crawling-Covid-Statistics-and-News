@@ -1,5 +1,0 @@
-              	 Feb 02, 2023	   Mar 04, 2023		Percentage chnage
-active cases  	        90610	          73376		-19.02%
-new cases     	         4021	           4013		-0.20%
-new deaths    	           52	              0		N/A
-new recoveries	         4021	           4013		-0.20%

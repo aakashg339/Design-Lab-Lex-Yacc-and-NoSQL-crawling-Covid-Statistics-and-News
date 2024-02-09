@@ -5,8 +5,15 @@ import sys
 month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 reqd_dates=[]
 i=0
+country=''
+dict=[]
 for line in sys.stdin:
     if i==0:
+        i+=1
+        country=line.strip()
+        # print(f"{line.strip()}")
+        continue
+    if i==1: 
         st_date=line.strip()
         dd,mm,yy=st_date.split('-')
         if mm[0]=='0':
@@ -15,7 +22,7 @@ for line in sys.stdin:
         st_date=f'{month[mm-1]} {dd}, {yy}'
         i+=1
         continue
-    if i==1:
+    if i==2:
         end_date=line.strip()
         dd,mm,yy=end_date.split('-')
         if mm[0]=='0':
@@ -25,16 +32,31 @@ for line in sys.stdin:
         i+=1
         continue
     line = line.strip()
-    line=eval(line)
-    date=line[0]
-    data=line[2]
+    elements = line.split('][')
+  
+    temp=[] 
+    for element in elements:
+        element=element.strip('[]')
+        temp.append(element)
+        if len(temp)==4:
+            dt=temp[0][1:13]
+            info=f'{temp[0]}\t{temp[1]}\t{temp[2]}\t{temp[3]}'
+            dict.append((dt,info))
+            # print(f"{dict}")
 
 
-    if st_date==date:
-        print(f"{date}\t{line[1]}\t{data}")
-    if end_date==date:
-        print(f"{date}\t{line[1]}\t{data}")
-
-
+# print(dict)
+send=[]
+for a,b in dict:
+    if a==st_date:
+        print(f"{country}\t{a}\t{b}")
+        # send.append(f"{country}\t{a}\t{b}")
+        break   
+for a,b in dict:
+    if a==end_date:
+        print(f"{country}\t{a}\t{b}")
+        # send.append(f"{a}\t{b}")
+        break
+# print(send)
 
 
