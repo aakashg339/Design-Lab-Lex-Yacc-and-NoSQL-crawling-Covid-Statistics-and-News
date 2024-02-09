@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEHEADER CLOSEHREF CLOSEHTHREE CLOSEHTWO CLOSELI CLOSEP CLOSEROW CLOSESPAN CLOSESTYLE CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENHEADER OPENHREF OPENHTHREE OPENHTWO OPENLI OPENP OPENROW OPENSPAN OPENSTYLE OPENTABLE OPENULstart : month\n             | monthDataul\n             | monthDateData\n             | emptyskiptag : CONTENT skiptag\n               | OPENHREF skiptag\n               | CLOSEHREF skiptag\n               | emptymonth : OPENHTWO CONTENT CONTENT CLOSEHTWO empty\n                | OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul \n                |monthDateData : OPENHTHREE CONTENT CONTENT CLOSEHTHREE OPENPopenpData : OPENP dataInEachLi CLOSEP monthDataulmonthDataul : OPENUL dataLi CLOSEUL monthDataul\n                   | emptydataLi : OPENLI dataInEachLi CLOSELI dataLi\n              | emptydataInEachLi : CONTENT dataInEachLi\n                    | emptyempty :'
+_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEHEADER CLOSEHREF CLOSEHTHREE CLOSEHTWO CLOSELI CLOSEP CLOSEROW CLOSESPAN CLOSESTYLE CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENHEADER OPENHREF OPENHTHREE OPENHTWO OPENLI OPENP OPENROW OPENSPAN OPENSTYLE OPENTABLE OPENULstart : month\n             | emptymonth : OPENHTWO CONTENT CONTENT CLOSEHTWO openpDataskiptag : CONTENT skiptag\n               | OPENHREF skiptag\n               | CLOSEHREF skiptag\n               | emptyopenpData : OPENP dataInEachLi CLOSEP empty\n                    | emptydataInEachLi : CONTENT dataInEachLi\n                    | emptyempty :'
     
-_lr_action_items = {'OPENHTWO':([0,],[6,]),'$end':([0,1,2,3,4,5,15,20,21,22,26,27,29,],[-11,0,-1,-2,-3,-4,-20,-20,-14,-15,-9,-10,-12,]),'OPENUL':([0,15,20,],[7,7,7,]),'OPENHTHREE':([0,],[8,]),'CONTENT':([6,8,9,11,13,17,],[9,13,14,17,19,17,]),'OPENLI':([7,23,],[11,11,]),'CLOSEUL':([7,10,12,23,28,],[-20,15,-17,-20,-16,]),'CLOSELI':([11,16,17,18,24,],[-20,23,-20,-19,-18,]),'CLOSEHTWO':([14,],[20,]),'CLOSEHTHREE':([19,],[25,]),'OPENP':([25,],[29,]),}
+_lr_action_items = {'OPENHTWO':([0,],[4,]),'$end':([0,1,2,3,7,8,10,14,16,],[-12,0,-1,-2,-12,-3,-9,-12,-8,]),'CONTENT':([4,5,9,13,],[5,6,13,13,]),'CLOSEHTWO':([6,],[7,]),'OPENP':([7,],[9,]),'CLOSEP':([9,11,12,13,15,],[-12,14,-11,-12,-10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'month':([0,],[2,]),'monthDataul':([0,15,20,],[3,21,27,]),'monthDateData':([0,],[4,]),'empty':([0,7,11,15,17,20,23,],[5,12,18,22,18,26,12,]),'dataLi':([7,23,],[10,28,]),'dataInEachLi':([11,17,],[16,24,]),}
+_lr_goto_items = {'start':([0,],[1,]),'month':([0,],[2,]),'empty':([0,7,9,13,14,],[3,10,12,12,16,]),'openpData':([7,],[8,]),'dataInEachLi':([9,13,],[11,15,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,24 +27,16 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> month','start',1,'p_start','23CS60R22_DesLab_T2_A.py',133),
-  ('start -> monthDataul','start',1,'p_start','23CS60R22_DesLab_T2_A.py',134),
-  ('start -> monthDateData','start',1,'p_start','23CS60R22_DesLab_T2_A.py',135),
-  ('start -> empty','start',1,'p_start','23CS60R22_DesLab_T2_A.py',136),
-  ('skiptag -> CONTENT skiptag','skiptag',2,'p_skiptag','23CS60R22_DesLab_T2_A.py',140),
-  ('skiptag -> OPENHREF skiptag','skiptag',2,'p_skiptag','23CS60R22_DesLab_T2_A.py',141),
-  ('skiptag -> CLOSEHREF skiptag','skiptag',2,'p_skiptag','23CS60R22_DesLab_T2_A.py',142),
-  ('skiptag -> empty','skiptag',1,'p_skiptag','23CS60R22_DesLab_T2_A.py',143),
-  ('month -> OPENHTWO CONTENT CONTENT CLOSEHTWO empty','month',5,'p_month','23CS60R22_DesLab_T2_A.py',146),
-  ('month -> OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul','month',5,'p_month','23CS60R22_DesLab_T2_A.py',147),
-  ('month -> <empty>','month',0,'p_month','23CS60R22_DesLab_T2_A.py',148),
-  ('monthDateData -> OPENHTHREE CONTENT CONTENT CLOSEHTHREE OPENP','monthDateData',5,'p_monthDateData','23CS60R22_DesLab_T2_A.py',157),
-  ('openpData -> OPENP dataInEachLi CLOSEP monthDataul','openpData',4,'p_openpData','23CS60R22_DesLab_T2_A.py',166),
-  ('monthDataul -> OPENUL dataLi CLOSEUL monthDataul','monthDataul',4,'p_monthDataul','23CS60R22_DesLab_T2_A.py',170),
-  ('monthDataul -> empty','monthDataul',1,'p_monthDataul','23CS60R22_DesLab_T2_A.py',171),
-  ('dataLi -> OPENLI dataInEachLi CLOSELI dataLi','dataLi',4,'p_dataLi','23CS60R22_DesLab_T2_A.py',175),
-  ('dataLi -> empty','dataLi',1,'p_dataLi','23CS60R22_DesLab_T2_A.py',176),
-  ('dataInEachLi -> CONTENT dataInEachLi','dataInEachLi',2,'p_dataInEachLi','23CS60R22_DesLab_T2_A.py',184),
-  ('dataInEachLi -> empty','dataInEachLi',1,'p_dataInEachLi','23CS60R22_DesLab_T2_A.py',185),
-  ('empty -> <empty>','empty',0,'p_empty','23CS60R22_DesLab_T2_A.py',248),
+  ('start -> month','start',1,'p_start','try.py',133),
+  ('start -> empty','start',1,'p_start','try.py',134),
+  ('month -> OPENHTWO CONTENT CONTENT CLOSEHTWO openpData','month',5,'p_month','try.py',138),
+  ('skiptag -> CONTENT skiptag','skiptag',2,'p_skiptag','try.py',149),
+  ('skiptag -> OPENHREF skiptag','skiptag',2,'p_skiptag','try.py',150),
+  ('skiptag -> CLOSEHREF skiptag','skiptag',2,'p_skiptag','try.py',151),
+  ('skiptag -> empty','skiptag',1,'p_skiptag','try.py',152),
+  ('openpData -> OPENP dataInEachLi CLOSEP empty','openpData',4,'p_openpData','try.py',155),
+  ('openpData -> empty','openpData',1,'p_openpData','try.py',156),
+  ('dataInEachLi -> CONTENT dataInEachLi','dataInEachLi',2,'p_dataInEachLi','try.py',166),
+  ('dataInEachLi -> empty','dataInEachLi',1,'p_dataInEachLi','try.py',167),
+  ('empty -> <empty>','empty',0,'p_empty','try.py',231),
 ]

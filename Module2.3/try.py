@@ -2,6 +2,7 @@ import ply.lex as lex
 import ply.yacc as yacc
 import re
 import os
+import sys
 
 ###DEFINING TOKENS###
 tokens = ('BEGINTABLE', 
@@ -128,65 +129,44 @@ def t_error(t):
 text = ""
 textList = []
 textDict = {}
+outputFileWriter = None
 
 def p_start(p):
     '''start : month
-             | monthDataul
-             | monthDateData
              | empty'''
     p[0] = p[1]
+
+def p_month(p):
+    '''month : OPENHTWO CONTENT CONTENT CLOSEHTWO openpData'''
+    
+    global text
+
+    print(text)
+
+    # if len(p) == 6:
+    #     # print(p[2])
+    #     text = p[2] + "\n" + text
 
 def p_skiptag(p):
     '''skiptag : CONTENT skiptag
                | OPENHREF skiptag
                | CLOSEHREF skiptag
                | empty'''
-    
-def p_month(p):
-    '''month : OPENHTWO CONTENT CONTENT CLOSEHTWO empty
-                | OPENHTWO CONTENT CONTENT CLOSEHTWO monthDataul 
-                |'''
-    
-    global text
-
-    if len(p) == 6:
-        # print(p[2])
-        text = p[2] + "\n" + text
-
-def p_monthDateData(p):
-    '''monthDateData : OPENHTHREE CONTENT CONTENT CLOSEHTHREE openpData'''
-    #print("-> monthDateData parsed")
-    # if len(p) == 6:
-    #     print(p[2])
-
-    global text
-    text = p[2] + "," + text + ","
 
 def p_openpData(p):
-    '''openpData : OPENP dataInEachLi CLOSEP monthDataul'''
+    '''openpData : OPENP dataInEachLi CLOSEP empty
+                    | empty'''
     print("-> openpData parsed")
-
-def p_monthDataul(p):
-    '''monthDataul : OPENUL dataLi CLOSEUL monthDataul
-                   | empty'''
-    print("-> monthDataul parsed")
-
-def p_dataLi(p):
-    '''dataLi : OPENLI dataInEachLi CLOSELI dataLi
-              | empty'''
-    #print("-> dataLi parsed")dataInEachLi
-    global text
-    if len(p) == 5:
-        textList.append(text)
-        text = ""
+    
 
 def p_dataInEachLi(p):
     '''dataInEachLi : CONTENT dataInEachLi
                     | empty'''
     
-    global text
+    global outputFileWriter
     if len(p) == 3:
-        text = p[1] + text
+        #print(p[1])
+        outputFileWriter.write(p[1] + "\n")
 
     #print("-> dataInEachLi parsed")
 
@@ -259,6 +239,10 @@ def p_error(p):
 
 #########DRIVER FUNCTION#######
 def readAndParse(filename):
+    # open file for writing
+    global outputFileWriter
+    outputFileWriter = open("extractedData/"+filename+".txt", "w")
+
     try:
         # Opening file India_Timeline_of_the_COVID-19_pandemic_in_India_(January%E2%80%93May_2020).html in folder webpages
         urls = "webpages/"+filename+".html"
@@ -275,7 +259,7 @@ def readAndParse(filename):
             file.close()
         # for tok in lexer:
         #     print(tok)
-        parser = yacc.yacc(write_tables=0)
+        parser = yacc.yacc()
         parser.parse(data)
         #parser.parse(data)
     except IOError:
@@ -291,22 +275,7 @@ def readAndParse(filename):
     filename = "extractedData/"+filename+".txt"
     with open(filename, "w") as file:
         for i in textList:
-            # Seperate each i as per a regex pattern. Pattern would be something like On 7 March, <some text> In place of march and date there can be other months and dates as well. In place of some text there can be other valid sentences.
-            regexSeperateSentence = re.compile(r'On\s\d+\s\w+')
-            matches = regexSeperateSentence.findall(i)
-
-            if len(matches) == 0:
-                file.write(i + "\n")
-                continue
-
-            # write the matches to file in reverse order
-            for match in matches[::-1]:
-                # find the complete sentence and write it to file
-                regexEachSentence = re.compile(r''+match+'.*')
-                match = regexEachSentence.findall(i)[0]
-                file.write(match + "\n")
-                # remove the sentence from i
-                i = i.replace(match, "")
+            file.write(i + "\n")
 
         file.close()
 
@@ -315,29 +284,13 @@ def readAndParse(filename):
 
 def main():
     # Read keys from filename (key) dataUrls.txt
-    fileNames = []
-    # try:
-    #     with open("dataUrls.txt", "r") as file:
-    #         data = file.read()
-    #         file.close()
-    #     # Split the data into key-value pairs
-    #     data = data.split("\n")
-    #     # Create a dictionary to store the key-value pairs
-        
-    #     for d in data:
-    #         if d == "":
-    #             continue
-    #         key, value = d.split("|")
-    #         fileNames.append(key)
-    # except IOError:
-    #     print("Error opening file dataUrls.txt")
-
-    fileNames.append("India(January_May_2020)")
-
-    print(fileNames)
+    with open("dataUrls.txt", "r") as file:
+        lines = file.readlines()
+        file.close()
 
     # for each filename, read and parse the file
-    for filename in fileNames:
+    for line in lines:
+        filename = line.split("|")[0]
         readAndParse(filename)
 
 if __name__ == '__main__':
