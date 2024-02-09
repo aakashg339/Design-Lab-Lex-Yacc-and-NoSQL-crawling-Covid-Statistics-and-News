@@ -35,3 +35,4 @@ for i in range(4):
     b=dict2[headings[i]]
     per_change=change(a,b)
     print(f"{headings[i]:<14}\t{dict1[headings[i]]:>13}\t{dict2[headings[i]]:>15}\t\t{per_change}")
+
