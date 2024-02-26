@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CLOSEDIV CLOSEHEADER CLOSEHREF CLOSELI CLOSEUL CONTENT GARBAGE OPENDIV OPENHEADER OPENHREF OPENLI OPENULstart : orderedlistorderedlist : OPENLI OPENHREF CONTENT CLOSEHREFempty :'
+_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEH3 CLOSEHEADER CLOSEHREF CLOSELI CLOSEPARA CLOSEROW CLOSESPAN CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENH3 OPENHEADER OPENHREF OPENLI OPENPARA OPENROW OPENSPAN OPENTABLE OPENULstart : handleheader dataCelldataContent : CONTENT\n                   | CONTENT CONTENT\n                   | CONTENT CONTENT CONTENTskiptag : OPENHREF skiptag\n               | CLOSEHREF skiptag\n               | CONTENT skiptag\n               | emptydataSpan : OPENSPAN dataContent CLOSESPANdataHREF : OPENHREF dataContent CLOSEHREF\n                | OPENHREF CONTENT CONTENT CONTENT CLOSEHREFdataCell : OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA\n                | OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA\n                | OPENPARA dataContent dataHREF CLOSEPARAhandleheader : OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER\n                    | empty :'
     
-_lr_action_items = {'OPENLI':([0,],[3,]),'$end':([1,2,6,],[0,-1,-2,]),'OPENHREF':([3,],[4,]),'CONTENT':([4,],[5,]),'CLOSEHREF':([5,],[6,]),}
+_lr_action_items = {'OPENHEADER':([0,],[3,]),'OPENPARA':([0,2,24,],[-16,5,-15,]),'$end':([1,4,20,31,33,],[0,-1,-14,-12,-13,]),'OPENSPAN':([3,],[6,]),'OPENHREF':([5,8,10,12,16,19,23,25,29,],[9,9,-2,9,-3,9,-4,9,9,]),'CONTENT':([5,6,7,9,10,13,15,16,18,21,22,26,30,],[10,11,10,15,16,10,22,23,10,-10,27,10,-11,]),'CLOSESPAN':([11,],[17,]),'CLOSEPARA':([13,21,28,30,32,],[20,-10,31,-11,33,]),'CLOSEHREF':([14,15,22,27,],[21,-2,-3,30,]),'CLOSEHEADER':([17,],[24,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'orderedlist':([0,],[2,]),}
+_lr_goto_items = {'start':([0,],[1,]),'handleheader':([0,],[2,]),'dataCell':([2,],[4,]),'dataHREF':([5,8,12,19,25,29,],[7,13,18,26,28,32,]),'dataContent':([5,7,9,13,18,26,],[8,12,14,19,25,29,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,7 +27,21 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> orderedlist','start',1,'p_start','links_extract.py',54),
-  ('orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF','orderedlist',4,'p_orderedlist','links_extract.py',58),
-  ('empty -> <empty>','empty',0,'p_empty','links_extract.py',63),
+  ('start -> handleheader dataCell','start',2,'p_start','extract_info.py',74),
+  ('dataContent -> CONTENT','dataContent',1,'p_dataContent','extract_info.py',80),
+  ('dataContent -> CONTENT CONTENT','dataContent',2,'p_dataContent','extract_info.py',81),
+  ('dataContent -> CONTENT CONTENT CONTENT','dataContent',3,'p_dataContent','extract_info.py',82),
+  ('skiptag -> OPENHREF skiptag','skiptag',2,'p_skiptag','extract_info.py',92),
+  ('skiptag -> CLOSEHREF skiptag','skiptag',2,'p_skiptag','extract_info.py',93),
+  ('skiptag -> CONTENT skiptag','skiptag',2,'p_skiptag','extract_info.py',94),
+  ('skiptag -> empty','skiptag',1,'p_skiptag','extract_info.py',95),
+  ('dataSpan -> OPENSPAN dataContent CLOSESPAN','dataSpan',3,'p_dataSPAN','extract_info.py',98),
+  ('dataHREF -> OPENHREF dataContent CLOSEHREF','dataHREF',3,'p_dataHREF','extract_info.py',101),
+  ('dataHREF -> OPENHREF CONTENT CONTENT CONTENT CLOSEHREF','dataHREF',5,'p_dataHREF','extract_info.py',102),
+  ('dataCell -> OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA','dataCell',7,'p_dataCell','extract_info.py',105),
+  ('dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA','dataCell',8,'p_dataCell','extract_info.py',106),
+  ('dataCell -> OPENPARA dataContent dataHREF CLOSEPARA','dataCell',4,'p_dataCell','extract_info.py',107),
+  ('handleheader -> OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER','handleheader',5,'p_handleheader','extract_info.py',110),
+  ('handleheader -> <empty>','handleheader',0,'p_handleheader','extract_info.py',111),
+  ('empty -> <empty>','empty',0,'p_empty','extract_info.py',120),
 ]

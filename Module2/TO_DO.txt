@@ -1,0 +1,2 @@
+*Need to fix saving the response page - DONE
+*Need to find a way to extract info from all pages and save it in text file

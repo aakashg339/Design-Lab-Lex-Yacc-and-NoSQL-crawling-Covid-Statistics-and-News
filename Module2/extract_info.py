@@ -71,8 +71,20 @@ def t_error(t):
 ####################################################################################################################################################################################################
 											#GRAMMAR RULES
 def p_start(p):
-    '''start : orderedlist'''
+    '''start : handleheader dataCell'''
     p[0] = p[1]
+
+
+def p_dataContent(p):
+    '''dataContent : CONTENT
+                   | CONTENT CONTENT
+                   | CONTENT CONTENT CONTENT'''
+    if(len(p)==2):
+        print(p[1])
+    elif(len(p)==3):
+        print(p[1]+p[2])
+    elif(len(p)==4):
+        print(p[1]+p[2]+p[3])
 
 def p_skiptag(p):
     '''skiptag : OPENHREF skiptag
@@ -80,35 +92,25 @@ def p_skiptag(p):
                | CONTENT skiptag
                | empty'''
 
+def p_dataSPAN(p):
+    '''dataSpan : OPENSPAN dataContent CLOSESPAN'''
+
+def p_dataHREF(p):
+    '''dataHREF : OPENHREF dataContent CLOSEHREF
+                | OPENHREF CONTENT CONTENT CONTENT CLOSEHREF'''
+
+def p_dataCell(p):
+    '''dataCell : OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+                | OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+                | OPENPARA dataContent dataHREF CLOSEPARA'''
 
 def p_handleheader(p):
     '''handleheader : OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER
                     | '''
     if(len(p)==6):
-        print(p[3])
+        print(p[3]+'\n')
+
         
-
-
-def p_dataCell(p):
-    '''dataCell : OPENPARA OPENHREF CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF OPENHREF CONTENT CONTENT CONTENT CLOSEHREF OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CLOSEPARA
-                | OPENPARA CONTENT OPENHREF CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CONTENT CLOSEHREF CONTENT CONTENT CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CLOSEPARA
-                | OPENPARA CONTENT CONTENT CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CONTENT CONTENT CONTENT CONTENT OPENHREF OPENSPAN CONTENT CLOSESPAN CLOSEHREF CONTENT CLOSEPARA
-                | OPENPARA CONTENT CONTENT OPENHREF CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CLOSEHREF CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF OPENHREF CONTENT CONTENT CONTENT CLOSEHREF OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CLOSEPARA'''
-    if(len(p)==26):
-        print(p[3]+p[5]+p[7]+p[9])
-    elif(len(p)==27):
-        print(p[2]+p[4]+p[10]+p[16]+p[17]+p[18])
-    elif(len(p)==39):
-        print(p[2]+p[3]+p[5]+p[7]+p[9]+p[11]+p[12]+p[13]+p[14]+p[15]+p[16]+p[32])
-        
-def p_orderedlist(p):
-    '''orderedlist : handleheader dataCell'''
-
-def p_content(p):
-    '''content : CONTENT
-               | empty'''
-    p[0] = p[1]
-
 def p_empty(p):
     '''empty :'''
     pass
@@ -117,7 +119,7 @@ def p_error(p):
     pass
 
 def main():
-    file_obj= open('webpage_download.html','r',encoding="utf-8")
+    file_obj= open('jan2020.html','r',encoding="utf-8")
     data=file_obj.read()
     lexer = lex.lex()
     lexer.input(data)

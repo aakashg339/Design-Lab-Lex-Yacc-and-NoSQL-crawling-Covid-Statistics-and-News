@@ -2,42 +2,82 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    BEGINTABLE
+    CLOSEDATA
     CLOSEDIV
-    CLOSEHEADER
+    CLOSEH3
     CLOSELI
+    CLOSEROW
+    CLOSETABLE
     CLOSEUL
     GARBAGE
+    OPENDATA
     OPENDIV
-    OPENHEADER
+    OPENH3
+    OPENLI
+    OPENROW
+    OPENTABLE
     OPENUL
 
 Grammar
 
 Rule 0     S' -> start
-Rule 1     start -> orderedlist
-Rule 2     orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF
-Rule 3     empty -> <empty>
+Rule 1     start -> handleheader dataCell
+Rule 2     dataContent -> CONTENT
+Rule 3     dataContent -> CONTENT CONTENT
+Rule 4     dataContent -> CONTENT CONTENT CONTENT
+Rule 5     skiptag -> OPENHREF skiptag
+Rule 6     skiptag -> CLOSEHREF skiptag
+Rule 7     skiptag -> CONTENT skiptag
+Rule 8     skiptag -> empty
+Rule 9     dataSpan -> OPENSPAN dataContent CLOSESPAN
+Rule 10    dataHREF -> OPENHREF dataContent CLOSEHREF
+Rule 11    dataHREF -> OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+Rule 12    dataCell -> OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+Rule 13    dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+Rule 14    dataCell -> OPENPARA dataContent dataHREF CLOSEPARA
+Rule 15    handleheader -> OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER
+Rule 16    handleheader -> <empty>
+Rule 17    empty -> <empty>
 
 Terminals, with rules where they appear
 
+BEGINTABLE           : 
+CLOSEDATA            : 
 CLOSEDIV             : 
-CLOSEHEADER          : 
-CLOSEHREF            : 2
+CLOSEH3              : 
+CLOSEHEADER          : 15
+CLOSEHREF            : 6 10 11
 CLOSELI              : 
+CLOSEPARA            : 12 13 14
+CLOSEROW             : 
+CLOSESPAN            : 9 15
+CLOSETABLE           : 
 CLOSEUL              : 
-CONTENT              : 2
+CONTENT              : 2 3 3 4 4 4 7 11 11 11 15
 GARBAGE              : 
+OPENDATA             : 
 OPENDIV              : 
-OPENHEADER           : 
-OPENHREF             : 2
-OPENLI               : 2
+OPENH3               : 
+OPENHEADER           : 15
+OPENHREF             : 5 10 11
+OPENLI               : 
+OPENPARA             : 12 13 14
+OPENROW              : 
+OPENSPAN             : 9 15
+OPENTABLE            : 
 OPENUL               : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-empty                : 
-orderedlist          : 1
+dataCell             : 1
+dataContent          : 9 10 12 12 13 13 13 14
+dataHREF             : 12 12 12 13 13 13 14
+dataSpan             : 
+empty                : 8
+handleheader         : 1
+skiptag              : 5 6 7
 start                : 0
 
 Parsing method: LALR
@@ -45,13 +85,15 @@ Parsing method: LALR
 state 0
 
     (0) S' -> . start
-    (1) start -> . orderedlist
-    (2) orderedlist -> . OPENLI OPENHREF CONTENT CLOSEHREF
+    (1) start -> . handleheader dataCell
+    (15) handleheader -> . OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER
+    (16) handleheader -> .
 
-    OPENLI          shift and go to state 3
+    OPENHEADER      shift and go to state 3
+    OPENPARA        reduce using rule 16 (handleheader -> .)
 
     start                          shift and go to state 1
-    orderedlist                    shift and go to state 2
+    handleheader                   shift and go to state 2
 
 state 1
 
@@ -61,35 +103,299 @@ state 1
 
 state 2
 
-    (1) start -> orderedlist .
+    (1) start -> handleheader . dataCell
+    (12) dataCell -> . OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (13) dataCell -> . OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (14) dataCell -> . OPENPARA dataContent dataHREF CLOSEPARA
 
-    $end            reduce using rule 1 (start -> orderedlist .)
+    OPENPARA        shift and go to state 5
 
+    dataCell                       shift and go to state 4
 
 state 3
 
-    (2) orderedlist -> OPENLI . OPENHREF CONTENT CLOSEHREF
+    (15) handleheader -> OPENHEADER . OPENSPAN CONTENT CLOSESPAN CLOSEHEADER
 
-    OPENHREF        shift and go to state 4
+    OPENSPAN        shift and go to state 6
 
 
 state 4
 
-    (2) orderedlist -> OPENLI OPENHREF . CONTENT CLOSEHREF
+    (1) start -> handleheader dataCell .
 
-    CONTENT         shift and go to state 5
+    $end            reduce using rule 1 (start -> handleheader dataCell .)
 
 
 state 5
 
-    (2) orderedlist -> OPENLI OPENHREF CONTENT . CLOSEHREF
+    (12) dataCell -> OPENPARA . dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (13) dataCell -> OPENPARA . dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (14) dataCell -> OPENPARA . dataContent dataHREF CLOSEPARA
+    (10) dataHREF -> . OPENHREF dataContent CLOSEHREF
+    (11) dataHREF -> . OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+    (2) dataContent -> . CONTENT
+    (3) dataContent -> . CONTENT CONTENT
+    (4) dataContent -> . CONTENT CONTENT CONTENT
 
-    CLOSEHREF       shift and go to state 6
+    OPENHREF        shift and go to state 9
+    CONTENT         shift and go to state 10
 
+    dataHREF                       shift and go to state 7
+    dataContent                    shift and go to state 8
 
 state 6
 
-    (2) orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF .
+    (15) handleheader -> OPENHEADER OPENSPAN . CONTENT CLOSESPAN CLOSEHEADER
 
-    $end            reduce using rule 2 (orderedlist -> OPENLI OPENHREF CONTENT CLOSEHREF .)
+    CONTENT         shift and go to state 11
 
+
+state 7
+
+    (12) dataCell -> OPENPARA dataHREF . dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (2) dataContent -> . CONTENT
+    (3) dataContent -> . CONTENT CONTENT
+    (4) dataContent -> . CONTENT CONTENT CONTENT
+
+    CONTENT         shift and go to state 10
+
+    dataContent                    shift and go to state 12
+
+state 8
+
+    (13) dataCell -> OPENPARA dataContent . dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (14) dataCell -> OPENPARA dataContent . dataHREF CLOSEPARA
+    (10) dataHREF -> . OPENHREF dataContent CLOSEHREF
+    (11) dataHREF -> . OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+
+    OPENHREF        shift and go to state 9
+
+    dataHREF                       shift and go to state 13
+
+state 9
+
+    (10) dataHREF -> OPENHREF . dataContent CLOSEHREF
+    (11) dataHREF -> OPENHREF . CONTENT CONTENT CONTENT CLOSEHREF
+    (2) dataContent -> . CONTENT
+    (3) dataContent -> . CONTENT CONTENT
+    (4) dataContent -> . CONTENT CONTENT CONTENT
+
+    CONTENT         shift and go to state 15
+
+    dataContent                    shift and go to state 14
+
+state 10
+
+    (2) dataContent -> CONTENT .
+    (3) dataContent -> CONTENT . CONTENT
+    (4) dataContent -> CONTENT . CONTENT CONTENT
+
+    OPENHREF        reduce using rule 2 (dataContent -> CONTENT .)
+    CONTENT         shift and go to state 16
+
+
+state 11
+
+    (15) handleheader -> OPENHEADER OPENSPAN CONTENT . CLOSESPAN CLOSEHEADER
+
+    CLOSESPAN       shift and go to state 17
+
+
+state 12
+
+    (12) dataCell -> OPENPARA dataHREF dataContent . dataHREF dataContent dataHREF CLOSEPARA
+    (10) dataHREF -> . OPENHREF dataContent CLOSEHREF
+    (11) dataHREF -> . OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+
+    OPENHREF        shift and go to state 9
+
+    dataHREF                       shift and go to state 18
+
+state 13
+
+    (13) dataCell -> OPENPARA dataContent dataHREF . dataContent dataHREF dataContent dataHREF CLOSEPARA
+    (14) dataCell -> OPENPARA dataContent dataHREF . CLOSEPARA
+    (2) dataContent -> . CONTENT
+    (3) dataContent -> . CONTENT CONTENT
+    (4) dataContent -> . CONTENT CONTENT CONTENT
+
+    CLOSEPARA       shift and go to state 20
+    CONTENT         shift and go to state 10
+
+    dataContent                    shift and go to state 19
+
+state 14
+
+    (10) dataHREF -> OPENHREF dataContent . CLOSEHREF
+
+    CLOSEHREF       shift and go to state 21
+
+
+state 15
+
+    (11) dataHREF -> OPENHREF CONTENT . CONTENT CONTENT CLOSEHREF
+    (2) dataContent -> CONTENT .
+    (3) dataContent -> CONTENT . CONTENT
+    (4) dataContent -> CONTENT . CONTENT CONTENT
+
+    CONTENT         shift and go to state 22
+    CLOSEHREF       reduce using rule 2 (dataContent -> CONTENT .)
+
+
+state 16
+
+    (3) dataContent -> CONTENT CONTENT .
+    (4) dataContent -> CONTENT CONTENT . CONTENT
+
+    OPENHREF        reduce using rule 3 (dataContent -> CONTENT CONTENT .)
+    CONTENT         shift and go to state 23
+
+
+state 17
+
+    (15) handleheader -> OPENHEADER OPENSPAN CONTENT CLOSESPAN . CLOSEHEADER
+
+    CLOSEHEADER     shift and go to state 24
+
+
+state 18
+
+    (12) dataCell -> OPENPARA dataHREF dataContent dataHREF . dataContent dataHREF CLOSEPARA
+    (2) dataContent -> . CONTENT
+    (3) dataContent -> . CONTENT CONTENT
+    (4) dataContent -> . CONTENT CONTENT CONTENT
+
+    CONTENT         shift and go to state 10
+
+    dataContent                    shift and go to state 25
+
+state 19
+
+    (13) dataCell -> OPENPARA dataContent dataHREF dataContent . dataHREF dataContent dataHREF CLOSEPARA
+    (10) dataHREF -> . OPENHREF dataContent CLOSEHREF
+    (11) dataHREF -> . OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+
+    OPENHREF        shift and go to state 9
+
+    dataHREF                       shift and go to state 26
+
+state 20
+
+    (14) dataCell -> OPENPARA dataContent dataHREF CLOSEPARA .
+
+    $end            reduce using rule 14 (dataCell -> OPENPARA dataContent dataHREF CLOSEPARA .)
+
+
+state 21
+
+    (10) dataHREF -> OPENHREF dataContent CLOSEHREF .
+
+    CONTENT         reduce using rule 10 (dataHREF -> OPENHREF dataContent CLOSEHREF .)
+    CLOSEPARA       reduce using rule 10 (dataHREF -> OPENHREF dataContent CLOSEHREF .)
+
+
+state 22
+
+    (11) dataHREF -> OPENHREF CONTENT CONTENT . CONTENT CLOSEHREF
+    (3) dataContent -> CONTENT CONTENT .
+    (4) dataContent -> CONTENT CONTENT . CONTENT
+
+    CONTENT         shift and go to state 27
+    CLOSEHREF       reduce using rule 3 (dataContent -> CONTENT CONTENT .)
+
+
+state 23
+
+    (4) dataContent -> CONTENT CONTENT CONTENT .
+
+    OPENHREF        reduce using rule 4 (dataContent -> CONTENT CONTENT CONTENT .)
+
+
+state 24
+
+    (15) handleheader -> OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER .
+
+    OPENPARA        reduce using rule 15 (handleheader -> OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER .)
+
+
+state 25
+
+    (12) dataCell -> OPENPARA dataHREF dataContent dataHREF dataContent . dataHREF CLOSEPARA
+    (10) dataHREF -> . OPENHREF dataContent CLOSEHREF
+    (11) dataHREF -> . OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+
+    OPENHREF        shift and go to state 9
+
+    dataHREF                       shift and go to state 28
+
+state 26
+
+    (13) dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF . dataContent dataHREF CLOSEPARA
+    (2) dataContent -> . CONTENT
+    (3) dataContent -> . CONTENT CONTENT
+    (4) dataContent -> . CONTENT CONTENT CONTENT
+
+    CONTENT         shift and go to state 10
+
+    dataContent                    shift and go to state 29
+
+state 27
+
+    (11) dataHREF -> OPENHREF CONTENT CONTENT CONTENT . CLOSEHREF
+    (4) dataContent -> CONTENT CONTENT CONTENT .
+
+  ! shift/reduce conflict for CLOSEHREF resolved as shift
+    CLOSEHREF       shift and go to state 30
+
+  ! CLOSEHREF       [ reduce using rule 4 (dataContent -> CONTENT CONTENT CONTENT .) ]
+
+
+state 28
+
+    (12) dataCell -> OPENPARA dataHREF dataContent dataHREF dataContent dataHREF . CLOSEPARA
+
+    CLOSEPARA       shift and go to state 31
+
+
+state 29
+
+    (13) dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF dataContent . dataHREF CLOSEPARA
+    (10) dataHREF -> . OPENHREF dataContent CLOSEHREF
+    (11) dataHREF -> . OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+
+    OPENHREF        shift and go to state 9
+
+    dataHREF                       shift and go to state 32
+
+state 30
+
+    (11) dataHREF -> OPENHREF CONTENT CONTENT CONTENT CLOSEHREF .
+
+    CONTENT         reduce using rule 11 (dataHREF -> OPENHREF CONTENT CONTENT CONTENT CLOSEHREF .)
+    CLOSEPARA       reduce using rule 11 (dataHREF -> OPENHREF CONTENT CONTENT CONTENT CLOSEHREF .)
+
+
+state 31
+
+    (12) dataCell -> OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA .
+
+    $end            reduce using rule 12 (dataCell -> OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA .)
+
+
+state 32
+
+    (13) dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF . CLOSEPARA
+
+    CLOSEPARA       shift and go to state 33
+
+
+state 33
+
+    (13) dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA .
+
+    $end            reduce using rule 13 (dataCell -> OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for CLOSEHREF in state 27 resolved as shift

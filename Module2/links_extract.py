@@ -19,6 +19,25 @@ if not os.path.exists(TIMELINE_FOLDER):
 if not os.path.exists(RESPONSE_FOLDER):
     os.makedirs(RESPONSE_FOLDER)
 
+# Function to save links to a text file
+def save_links(links):
+    existing_links = set()
+    # Check if the file exists
+    if os.path.exists('links.txt'):
+        # Read existing links from the file
+        with open('links.txt', 'r') as file:
+            existing_links.update(file.read().splitlines())
+
+    # Add new links to the existing set
+    existing_links.update(links)
+    
+    # Write the links back to the text file
+    with open('links.txt', 'w') as file:
+        for link in existing_links:
+            file.write(link + '\n')
+
+
+
 ###############Tokenizer Rules################
 
 
@@ -140,10 +159,8 @@ def main():
         if match:
             extracted_links.append(match.group(1))
 
-    # Print the extracted links
-    print("Extracted links:")
-    for link in extracted_links:
-        print(link)
+    # Save links to a text file
+    save_links(extracted_links)
 
     # Download HTML files into respective folders
     for link in extracted_links:
@@ -151,18 +168,32 @@ def main():
         folder_name = TIMELINE_FOLDER if 'timeline' in link.lower() else RESPONSE_FOLDER
         print(f"Downloading HTML from URL: {full_url}")
         
-        # Extract the month and year from the link
-        match = re.search(r'_of_the_COVID-19_pandemic_in_(\w+)_([0-9]{4})', link)
-        if match:
-            month, year = match.groups()
-            file_name_prefix = 'T' if 'timeline' in link.lower() else 'R'
-            file_name = f"{file_name_prefix}_{month}_{year}.html"
-            print(f"Saving HTML file: {file_name} to folder: {folder_name}")
-            
-            html_content = download_html(full_url)
-            if html_content:
-                save_html(file_name, folder_name, html_content)
-
+        # Combine regular expressions to extract both response and timeline links
+        match_response = re.search(r'_to_the_COVID-19_pandemic_in_(\w+)_([0-9]{4})', link)
+        match_timeline = re.search(r'_of_the_COVID-19_pandemic_in_(\w+)_([0-9]{4})', link)
+        
+        if match_response:
+            month, year = match_response.groups()
+            # This is a response link
+            folder_name = RESPONSE_FOLDER
+            prefix = 'R'
+        elif match_timeline:
+            month, year = match_timeline.groups()
+            # This is a timeline link
+            folder_name = TIMELINE_FOLDER
+            prefix = 'T'
+        else:
+            print(f"Neither response nor timeline link: {link}")
+            continue
+        
+        file_name = f"{prefix}_{month}_{year}.html"
+        print(f"Saving HTML file: {file_name} to folder: {folder_name}")
+        
+        html_content = download_html(full_url)
+        if html_content:
+            save_html(file_name, folder_name, html_content)
+        else:
+            print(f"Failed to download HTML content from URL: {full_url}")
 
 
 if __name__ == '__main__':
