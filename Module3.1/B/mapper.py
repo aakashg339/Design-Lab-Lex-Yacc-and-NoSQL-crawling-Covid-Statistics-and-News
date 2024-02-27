@@ -11,6 +11,7 @@ with open(country_details, 'r') as file:
         line = line.strip()
         if i==0:
             i+=1
+            print(f"{line}")
             # os.system(f'python3 ../../Module1/individual_country/driver.py {line}')
             continue
         print(f"{line}")

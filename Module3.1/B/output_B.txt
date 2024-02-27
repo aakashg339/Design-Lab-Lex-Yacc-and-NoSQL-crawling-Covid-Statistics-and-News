@@ -1,0 +1,6 @@
+Country: russia
+              	 May 09, 2022	   May 14, 2022		Percentage chnage	Closest match
+active cases  	       246290	         236787		        -3.86%	     mexico (-0.01%)
+new cases     	         5030	           5047		         0.34%	     germany (1.43%)
+new deaths    	          103	            107		         3.88%	     germany (3.16%)
+new recoveries	         5030	           5047		         0.34%	     germany (1.43%)
