@@ -91,5 +91,5 @@ for country in countryAndFileMap:
             # replace '(' with '\(' and ')' with '\)'
             filename = filename.replace("(", "\(")
             filename = filename.replace(")", "\)")
-            os.system("python3 indiaParser1.py " + filename)
-            os.system("python3 indiaParser2.py " + filename)
+            os.system("python3 countryIndiaParser1.py " + filename)
+            os.system("python3 countryIndiaParser2.py " + filename)
