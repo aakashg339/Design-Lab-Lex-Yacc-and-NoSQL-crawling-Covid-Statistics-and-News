@@ -83,10 +83,12 @@ This part of the module crawls the Wikipedia link: https://en.wikipedia.org/wiki
 - For this part, we have utilized modules such as ply.lex, ply.yacc, os, and re.
 
 ### Module 2.3
-Completed part 2.3 for India. Currently it works only for India.
+Completed part 2.3 for India. Currently it works only for India and for few Australia page.
 - HTML file of each country is of different format.
 - Within each file also the structure can change.
-- Therefore used two files 'IndiaParser1.py' and 'IndiaParser2.py' to parse the data.
+- Therefore used two files 'IndiaParser1.py' and 'IndiaParser2.py' to parse the data and a seperate one for Australia.
+
+First extracted the required webpages and then extracting the data. 
 
 ## Module 3.1 
 

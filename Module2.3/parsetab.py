@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEHEADER CLOSEHREF CLOSEHTHREE CLOSEHTWO CLOSELI CLOSEP CLOSEROW CLOSESPAN CLOSESTYLE CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENHEADER OPENHREF OPENHTHREE OPENHTWO OPENLI OPENP OPENROW OPENSPAN OPENSTYLE OPENTABLE OPENULstart : portionToExtractportionToExtract : OPENHTHREE CONTENT CONTENT CLOSEHTHREE dataToExtractdataToExtract : OPENP content CLOSEPcontent : CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT'
+_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEHEADER CLOSEHREF CLOSEHTHREE CLOSEHTWO CLOSELI CLOSEP CLOSEROW CLOSESPAN CLOSESTYLE CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENHEADER OPENHREF OPENHTHREE OPENHTWO OPENLI OPENP OPENROW OPENSPAN OPENSTYLE OPENTABLE OPENULstart : portionToExtractportionToExtract : OPENHTWO CONTENT CONTENT CLOSEHTWO dataToExtractdataToExtract : OPENP content CLOSEP dataToExtract\n                        | emptycontent : CONTENT\n                | CONTENT CONTENT\n                | CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENTempty :'
     
-_lr_action_items = {'OPENHTHREE':([0,],[3,]),'$end':([1,2,7,11,],[0,-1,-2,-3,]),'CONTENT':([3,4,8,10,12,13,14,15,16,17,],[4,5,10,12,13,14,15,16,17,18,]),'CLOSEHTHREE':([5,],[6,]),'OPENP':([6,],[8,]),'CLOSEP':([9,12,14,16,18,],[11,-4,-5,-6,-7,]),}
+_lr_action_items = {'OPENHTWO':([0,],[3,]),'$end':([1,2,6,7,9,12,14,],[0,-1,-17,-2,-4,-17,-3,]),'CONTENT':([3,4,8,11,13,15,16,17,18,19,20,21,22,23,],[4,5,11,13,15,16,17,18,19,20,21,22,23,24,]),'CLOSEHTWO':([5,],[6,]),'OPENP':([6,12,],[8,8,]),'CLOSEP':([10,11,13,15,16,17,18,19,20,21,22,23,24,],[12,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'portionToExtract':([0,],[2,]),'dataToExtract':([6,],[7,]),'content':([8,],[9,]),}
+_lr_goto_items = {'start':([0,],[1,]),'portionToExtract':([0,],[2,]),'dataToExtract':([6,12,],[7,14,]),'empty':([6,12,],[9,9,]),'content':([8,],[10,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,11 +27,21 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> portionToExtract','start',1,'p_start','indiaParser.py',130),
-  ('portionToExtract -> OPENHTHREE CONTENT CONTENT CLOSEHTHREE dataToExtract','portionToExtract',5,'p_portionToExtract','indiaParser.py',134),
-  ('dataToExtract -> OPENP content CLOSEP','dataToExtract',3,'p_dataToExtract','indiaParser.py',141),
-  ('content -> CONTENT CONTENT','content',2,'p_content','indiaParser.py',146),
-  ('content -> CONTENT CONTENT CONTENT CONTENT','content',4,'p_content','indiaParser.py',147),
-  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',6,'p_content','indiaParser.py',148),
-  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',8,'p_content','indiaParser.py',149),
+  ('start -> portionToExtract','start',1,'p_start','countryAustraliaParser.py',133),
+  ('portionToExtract -> OPENHTWO CONTENT CONTENT CLOSEHTWO dataToExtract','portionToExtract',5,'p_portionToExtract','countryAustraliaParser.py',137),
+  ('dataToExtract -> OPENP content CLOSEP dataToExtract','dataToExtract',4,'p_dataToExtract','countryAustraliaParser.py',142),
+  ('dataToExtract -> empty','dataToExtract',1,'p_dataToExtract','countryAustraliaParser.py',143),
+  ('content -> CONTENT','content',1,'p_content','countryAustraliaParser.py',148),
+  ('content -> CONTENT CONTENT','content',2,'p_content','countryAustraliaParser.py',149),
+  ('content -> CONTENT CONTENT CONTENT','content',3,'p_content','countryAustraliaParser.py',150),
+  ('content -> CONTENT CONTENT CONTENT CONTENT','content',4,'p_content','countryAustraliaParser.py',151),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT','content',5,'p_content','countryAustraliaParser.py',152),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',6,'p_content','countryAustraliaParser.py',153),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',7,'p_content','countryAustraliaParser.py',154),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',8,'p_content','countryAustraliaParser.py',155),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',9,'p_content','countryAustraliaParser.py',156),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',10,'p_content','countryAustraliaParser.py',157),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',11,'p_content','countryAustraliaParser.py',158),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',12,'p_content','countryAustraliaParser.py',159),
+  ('empty -> <empty>','empty',0,'p_empty','countryAustraliaParser.py',171),
 ]
