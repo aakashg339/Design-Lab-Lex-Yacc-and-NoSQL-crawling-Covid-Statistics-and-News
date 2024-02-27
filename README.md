@@ -7,7 +7,7 @@
 
 - Aakash Gupta : Module 2 (2nd part) and Module 3.2
 - Rajdeep Ghosh : Module 1 and Module 3.1
-- Satya Prakash Nayak : Module 2 (1st part) and Module 4
+- Satya Prakash Nayak : Module 2 (1st part) and Module 3.2
 
 
 ## How to run the code:
