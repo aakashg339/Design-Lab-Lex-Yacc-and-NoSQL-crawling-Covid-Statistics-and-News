@@ -47,8 +47,7 @@ while True:
             print("The output is stored in the file ./A/output_1.txt")
 
     elif choice == 2:
-        allcountries = ['canada', 'france',
-            'italy', 'mexico', 'russia', 'germany']
+        allcountries = ['canada', 'france','italy', 'mexico', 'russia', 'germany']
         # allcountries = ['France', 'UK', 'Russia', 'Italy', 'Germany', 'Spain', 'Poland', 'Netherlands', 'Ukraine', 'Belgium',
                         # 'USA', 'Mexico', 'Canada', 'Cuba', 'Costa Rica', 'Panama', 'India', 'Turkey', 'Iran', 'Indonesia',
                         # 'Philippines', 'Japan', 'Israel', 'Malaysia', 'Thailand', 'Vietnam', 'Iraq', 'Bangladesh', 'Pakistan',
