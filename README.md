@@ -22,6 +22,14 @@ python3 menu.py
 ```
 
 Please enter valid inputs as mentioned in the menu.
+
+For module 2 (country - India)
+
+```
+cd Module2.3
+python3 webpage_download_A.py
+```
+
 ## Project Description:
 
 The project is divided into 4 modules. 
