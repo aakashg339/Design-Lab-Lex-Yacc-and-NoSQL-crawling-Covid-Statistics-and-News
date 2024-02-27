@@ -206,10 +206,9 @@ def readAndParse(filename):
 
 def main():
     # Reading filename from argument
-    # filename = sys.argv[1]
+    filename = sys.argv[1]
 
-    # filename = filename.strip()
-    filename = "Australia(2020)"
+    filename = filename.strip()
     
     # Read keys from filename (key) dataUrls.txt
     fileNames = []
