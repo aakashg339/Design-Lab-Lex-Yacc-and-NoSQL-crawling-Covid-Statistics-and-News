@@ -2,6 +2,7 @@ import ply.lex as lex
 import ply.yacc as yacc
 import re
 import os
+import sys
 
 ###DEFINING TOKENS###
 tokens = ('BEGINTABLE', 
@@ -191,68 +192,10 @@ def p_dataInEachLi(p):
     #print("-> dataInEachLi parsed")
 
 
-
-# def p_handleheader(p):
-#     '''handleheader : OPENHEADER CONTENT CLOSEHEADER handleheader
-#                     | OPENHEADER CONTENT CLOSEHEADER dataCell
-#                     | OPENHEADER OPENHREF CONTENT CLOSEHREF CLOSEHEADER dataCell
-#                     | OPENHEADER CONTENT CLOSEHEADER dataCell2
-#                     | empty'''
-#     # if len(p) == 5:
-#     #   print(p[2], end =" ")
-
-# def p_dataCell(p):
-#     '''dataCell : OPENDATA OPENHREF CONTENT CLOSEHREF CLOSEDATA dataCell
-#     		    | OPENDATA CONTENT OPENHREF CONTENT CLOSEHREF CLOSEDATA dataCell
-#                 | OPENDATA CONTENT CLOSEDATA dataCell
-#                 | OPENDATA CLOSEDATA dataCell
-#                 | OPENDATA OPENHREF CONTENT CLOSEHREF CONTENT CLOSEDATA dataCell
-#                 | OPENDATA CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CLOSEDATA dataCell
-#                 | OPENDATA CONTENT CONTENT OPENHREF CONTENT CLOSEHREF CONTENT OPENHREF CONTENT CLOSEHREF CONTENT CLOSEDATA dataCell
-#                 | OPENDATA CONTENT CONTENT OPENHREF CONTENT CONTENT CONTENT CLOSEHREF CLOSEDATA dataCell
-#                 | OPENDATA skiptag CLOSEDATA dataCell
-#                 | empty'''
-#     global isOpening
-#     if len(p) == 5 and p[2] is not None:
-#         if isOpening:
-#             print("Opening: ", p[2])
-#             isOpening = False
-#         else:
-#             print("Closing: ", p[2])
-#     if len(p) == 8:
-#         print("Host city: ",p[3], p[5])
-#     if len(p) == 10:
-#         print("Motto: ", p[2])
-#     if len(p) == 11:
-#         print("Athletes: ", p[2], '(', p[3], ')')
-#     if len(p) == 14:
-#         print("Nations: ", p[2], p[3], p[5], p[7], p[9], p[11])
- 
-# def p_dataCell2(p):
-#     '''dataCell2 : OPENDATA CONTENT OPENHREF CONTENT CLOSEHREF CONTENT CONTENT CLOSEDATA dataCell2
-#                 | empty'''
-#     if len(p) == 10:
-#         print("Events: ", p[2], p[4], p[6], '(',p[7], ')')
-
-# def p_handlerow(p):
-#     '''handlerow : OPENROW handleheader CLOSEROW handlerow 
-#                  | OPENROW dataCell CLOSEROW handlerow
-#                  | empty'''
-#     print("-> handlerow parsed")
-
-# def p_table(p):
-#     '''table : BEGINTABLE skiptag OPENTABLE handlerow '''
-#     print("-> table parsed")
-
 def p_empty(p):
     '''empty :'''
     pass
 
-# def p_content(p):
-#     '''content : CONTENT
-#                | empty'''
-#     p[0] = p[1]
-#     print("-> content parsed")
 
 def p_error(p):
     pass
@@ -269,7 +212,7 @@ def readAndParse(filename):
         lexer.input(data)
 
         # Writing the tokens to a file
-        with open("tokens.txt", "w") as file:
+        with open("tokens.txt", "a") as file:
             for tok in lexer:
                 file.write(str(tok) + "\n")
             file.close()
@@ -314,25 +257,15 @@ def readAndParse(filename):
     textList = []
 
 def main():
+    # Reading filename from argument
+    filename = sys.argv[1]
+
+    filename = filename.strip()
+
     # Read keys from filename (key) dataUrls.txt
     fileNames = []
-    # try:
-    #     with open("dataUrls.txt", "r") as file:
-    #         data = file.read()
-    #         file.close()
-    #     # Split the data into key-value pairs
-    #     data = data.split("\n")
-    #     # Create a dictionary to store the key-value pairs
-        
-    #     for d in data:
-    #         if d == "":
-    #             continue
-    #         key, value = d.split("|")
-    #         fileNames.append(key)
-    # except IOError:
-    #     print("Error opening file dataUrls.txt")
 
-    fileNames.append("India(January_May_2020)")
+    fileNames.append(filename)
 
     print(fileNames)
 

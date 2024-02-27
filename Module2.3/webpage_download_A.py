@@ -28,11 +28,15 @@ pattern = re.compile(r'<a href="/wiki/Timeline_of_the_COVID-19_pandemic_in_'+cou
 
 # Data URLs
 dataUrls = {}
+countryAndFileMap = {}
 
 for country in countries:
     pattern = re.compile(r'<a href="/wiki/Timeline_of_the_COVID-19_pandemic_in_'+country+'_\((.*?)\)"')
     # Get the matched pattern
     matches = pattern.findall(webpage)
+
+    countryAndFileMap[country] = []
+
     # Construct the data URL for each match
     for match in matches:
         urlForCountry = "https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_"+country+"_(" + match + ")"
@@ -44,6 +48,9 @@ for country in countries:
 
         # Check if the URL is already present in the list. Also check if the key is already present in the dictionary
         dataUrls[key] = urlForCountry
+
+        # Append the key to the list
+        countryAndFileMap[country].append(key)
 
 # # Print the data URLs
 # for country in countries:
@@ -76,3 +83,13 @@ for key in dataUrls:
     with open("webpages/"+key+".html", "w") as file:
         file.write(webpage)
         file.close()
+
+# call indiaParser1.py and indiaParser2.py for India values in countryAndFileMap
+for country in countryAndFileMap:
+    if country == "India":
+        for filename in countryAndFileMap[country]:
+            # replace '(' with '\(' and ')' with '\)'
+            filename = filename.replace("(", "\(")
+            filename = filename.replace(")", "\)")
+            os.system("python3 indiaParser1.py " + filename)
+            os.system("python3 indiaParser2.py " + filename)
