@@ -56,7 +56,11 @@ while True:
                         # 'South Africa', 'Morocco', 'Tunisia', 'Ethiopia', 'Libya', 'Egypt', 'Kenya', 'Zambia', 'Algeria',
                         # 'Botswana', 'Nigeria', 'Zimbabwe', 'Australia', 'Fiji', 'Papua New Guinea', 'New Caledonia', 'New Zealand'
                         # ]
-        print("Enter the country name: ", end="")
+        print("All COUNTRIES DO NOT HAVE ALL THE MENTIONED 4 FIELDS. Hence this task haas been limited to the counttries that have all 4 fields. They are as follows: ")
+        print(allcountries)
+
+
+        print("\nEnter the country name: ", end="")
         country = input().strip().lower()
 
         print("Enter the start date in the format DD-MM-YYYY: ", end="")
