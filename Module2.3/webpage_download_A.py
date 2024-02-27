@@ -84,6 +84,10 @@ for key in dataUrls:
         file.write(webpage)
         file.close()
 
+# delete folder if exists
+if os.path.exists("extractedData"):
+    os.system("rm -r extractedData")
+
 # call indiaParser1.py and indiaParser2.py for India values in countryAndFileMap
 for country in countryAndFileMap:
     if country == "India":
@@ -93,3 +97,9 @@ for country in countryAndFileMap:
             filename = filename.replace(")", "\)")
             os.system("python3 countryIndiaParser1.py " + filename)
             os.system("python3 countryIndiaParser2.py " + filename)
+    elif country == "Australia":
+        for filename in countryAndFileMap[country]:
+            # replace '(' with '\(' and ')' with '\)'
+            filename = filename.replace("(", "\(")
+            filename = filename.replace(")", "\)")
+            os.system("python3 countryAustraliaParser.py " + filename)
