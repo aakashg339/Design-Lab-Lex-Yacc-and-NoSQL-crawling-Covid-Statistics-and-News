@@ -1,11 +1,12 @@
+import os
 import ply.lex as lex
 import ply.yacc as yacc
-
+import re
 ###DEFINING TOKENS###
 tokens = ('BEGINTABLE', 
 'OPENTABLE', 'CLOSETABLE', 'OPENROW', 'CLOSEROW',
-'OPENHEADER', 'CLOSEHEADER', 'OPENHREF', 'CLOSEHREF',
-'CONTENT', 'OPENDATA', 'CLOSEDATA' ,'OPENSPAN', 'OPENPARA', 'CLOSEPARA', 'OPENH3','CLOSEH3',
+'OPENH3', 'CLOSEH3', 'OPENHREF', 'CLOSEHREF',
+'CONTENT', 'OPENDATA', 'CLOSEDATA' ,'OPENSPAN', 'OPENPARA', 'CLOSEPARA', 'OPENH2','CLOSEH2',
 'CLOSESPAN', 'OPENDIV', 'CLOSEDIV','OPENUL','CLOSEUL','OPENLI','CLOSELI','GARBAGE')
 t_ignore = '\t'
 
@@ -42,11 +43,19 @@ def t_CLOSEPARA(t):
     r'</p[^>]*>'
     return t
 
-def t_OPENHEADER(t):
+def t_OPENH2(t):
+    r'<h2[^>]*>'
+    return t
+
+def t_CLOSEH2(t):
+    r'</h2[^>]*>'
+    return t
+
+def t_OPENH3(t):
     r'<h3[^>]*>'
     return t
 
-def t_CLOSEHEADER(t):
+def t_CLOSEH3(t):
     r'</h3[^>]*>'
     return t
 
@@ -68,47 +77,78 @@ def t_GARBAGE(t):
 def t_error(t):
     t.lexer.skip(1)
 
+para = ''
+
 ####################################################################################################################################################################################################
 											#GRAMMAR RULES
 def p_start(p):
-    '''start : handleheader dataCell'''
+    '''start : handleheader dataCell
+             | handleheader dataLI
+             | empty'''
     p[0] = p[1]
 
 
 def p_dataContent(p):
     '''dataContent : CONTENT
                    | CONTENT CONTENT
-                   | CONTENT CONTENT CONTENT'''
+                   | CONTENT CONTENT CONTENT
+                   | CONTENT CONTENT CONTENT CONTENT
+                   | CONTENT CONTENT CONTENT CONTENT CONTENT
+                   | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT
+                   | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT'''
+    global para
     if(len(p)==2):
-        print(p[1])
+        if(not re.search(r'edit|tibet|see also|references', p[1],re.IGNORECASE)):
+            para+=(p[1])
     elif(len(p)==3):
-        print(p[1]+p[2])
+        para+=(p[1]+p[2])
     elif(len(p)==4):
-        print(p[1]+p[2]+p[3])
+        para+=(p[1]+p[2]+p[3])
+    elif(len(p)==5):
+        para+=(p[1]+p[2]+p[3]+p[4])
+    elif(len(p)==6):
+        para+=(p[1]+p[2]+p[3]+p[4]+p[5])
+    elif(len(p)==7):
+        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6])
+    elif(len(p)==8):
+        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+p[7])
+        
+
+def p_reLI(p):
+    '''reLI : dataContent dataHREF reLI
+            | dataHREF dataContent reLI
+            | '''
+
+def p_dataLI(p):
+    '''dataLI : OPENLI reLI CLOSELI dataLI
+              | '''
 
 def p_skiptag(p):
     '''skiptag : OPENHREF skiptag
                | CLOSEHREF skiptag
                | CONTENT skiptag
                | empty'''
-
-def p_dataSPAN(p):
-    '''dataSpan : OPENSPAN dataContent CLOSESPAN'''
+def p_dataSpan(p):
+    '''dataSpan : OPENSPAN CLOSESPAN
+                | OPENSPAN dataContent CLOSESPAN
+                | OPENSPAN
+                | CLOSESPAN'''
 
 def p_dataHREF(p):
     '''dataHREF : OPENHREF dataContent CLOSEHREF
-                | OPENHREF CONTENT CONTENT CONTENT CLOSEHREF'''
+                | OPENHREF CONTENT CONTENT CONTENT CLOSEHREF
+                | OPENHREF dataSpan CLOSEHREF'''
 
 def p_dataCell(p):
-    '''dataCell : OPENPARA dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
-                | OPENPARA dataContent dataHREF dataContent dataHREF dataContent dataHREF CLOSEPARA
-                | OPENPARA dataContent dataHREF CLOSEPARA'''
+    '''dataCell : OPENPARA dataContent dataHREF dataContent dataHREF CLOSEPARA 
+                | OPENPARA dataContent dataHREF CLOSEPARA
+                |'''
 
 def p_handleheader(p):
-    '''handleheader : OPENHEADER OPENSPAN CONTENT CLOSESPAN CLOSEHEADER
-                    | '''
-    if(len(p)==6):
-        print(p[3]+'\n')
+    '''handleheader : OPENH2 dataSpan dataSpan dataSpan dataSpan dataHREF dataSpan dataSpan CLOSEH2
+                    | OPENH3 dataSpan dataSpan dataSpan dataHREF dataSpan dataSpan CLOSEH3
+                    '''
+    
 
         
 def p_empty(p):
@@ -119,15 +159,37 @@ def p_error(p):
     pass
 
 def main():
-    file_obj= open('jan2020.html','r',encoding="utf-8")
-    data=file_obj.read()
-    lexer = lex.lex()
-    lexer.input(data)
-    for tok in lexer:
-         print(tok)
-    parser = yacc.yacc()
-    parser.parse(data)
-    file_obj.close()
+    if not os.path.exists('extracted'):
+        os.makedirs('extracted')
+
+    for file in os.listdir('response'):
+        if(file.endswith('.html')):
+            match = re.match(r'R_(\w+)_(\d{4})', file)
+            if match:
+                month = match.group(1)
+                year = match.group(2)
+                year_folder = os.path.join('extracted',year)
+                if not os.path.exists(year_folder):
+                    os.makedirs(year_folder)
+                
+                file_path = os.path.join('response', file)
+                output_file_path = os.path.join(year_folder, f"{month}.txt")                    
+
+
+                file_obj= open(file_path,'r',encoding="utf-8")
+                data=file_obj.read()
+                lexer = lex.lex()
+                lexer.input(data)
+                for tok in lexer:
+                    print(tok)
+                parser = yacc.yacc()
+                parser.parse(data)
+                file_obj.close()
+
+                global para
+                with open(output_file_path,'w') as output_file:
+                    output_file.write(para)
+                    para=''
 
 if __name__ == '__main__':
     main()
