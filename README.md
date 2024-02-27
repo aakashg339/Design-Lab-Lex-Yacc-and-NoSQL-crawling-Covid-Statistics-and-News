@@ -14,8 +14,16 @@
 (since its incomplete, the code needs to be run separately for each module)
 
 
-For module 1 and its queries : 
+For module 1  : 
 
+```
+cd Module1/individual_country
+python3 driver.py
+```
+This will generate the output files for each country in the folder 'merged_files' for the list of countries mentioned in worldmeters_countrylist.txt [which have all 4 fields]
+
+
+Now for the queries, :
 ```
 cd Module3.1
 python3 menu.py
@@ -63,7 +71,7 @@ The project is divided into 4 modules.
 
 ## Module 2
 
-## Module 2.1 and 2.2
+### Module 2.1 and 2.2
 This part of the module crawls the Wikipedia link: https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic and then extracts worldwide news and responses for all times.
 
 - To obtain all the required Wikipedia webpages, we first download the main wiki page using Mainpage_download.py.
@@ -74,7 +82,7 @@ This part of the module crawls the Wikipedia link: https://en.wikipedia.org/wiki
 
 - For this part, we have utilized modules such as ply.lex, ply.yacc, os, and re.
 
-## Module 2.3
+### Module 2.3
 Completed part 2.3 for India. Currently it works only for India and for few Australia page.
 - HTML file of each country is of different format.
 - Within each file also the structure can change.
@@ -96,6 +104,7 @@ A menu is also provided to display the outputs related to module 1 from worldmet
 
 ## Module 3.2
 
+yet to be done
 
 ## Team Members:
 
