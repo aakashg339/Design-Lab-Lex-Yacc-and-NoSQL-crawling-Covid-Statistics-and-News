@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEHEADER CLOSEHREF CLOSEHTHREE CLOSEHTWO CLOSELI CLOSEP CLOSEROW CLOSESPAN CLOSESTYLE CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENHEADER OPENHREF OPENHTHREE OPENHTWO OPENLI OPENP OPENROW OPENSPAN OPENSTYLE OPENTABLE OPENULstart : month\n             | emptymonth : OPENHTWO CONTENT CONTENT CLOSEHTWO openpDataskiptag : CONTENT skiptag\n               | OPENHREF skiptag\n               | CLOSEHREF skiptag\n               | emptyopenpData : OPENP dataInEachLi CLOSEP empty\n                    | emptydataInEachLi : CONTENT dataInEachLi\n                    | emptyempty :'
+_lr_signature = 'BEGINTABLE CLOSEDATA CLOSEDIV CLOSEHEADER CLOSEHREF CLOSEHTHREE CLOSEHTWO CLOSELI CLOSEP CLOSEROW CLOSESPAN CLOSESTYLE CLOSETABLE CLOSEUL CONTENT GARBAGE OPENDATA OPENDIV OPENHEADER OPENHREF OPENHTHREE OPENHTWO OPENLI OPENP OPENROW OPENSPAN OPENSTYLE OPENTABLE OPENULstart : portionToExtractportionToExtract : OPENHTHREE CONTENT CONTENT CLOSEHTHREE dataToExtractdataToExtract : OPENP content CLOSEPcontent : CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT\n                | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT'
     
-_lr_action_items = {'OPENHTWO':([0,],[4,]),'$end':([0,1,2,3,7,8,10,14,16,],[-12,0,-1,-2,-12,-3,-9,-12,-8,]),'CONTENT':([4,5,9,13,],[5,6,13,13,]),'CLOSEHTWO':([6,],[7,]),'OPENP':([7,],[9,]),'CLOSEP':([9,11,12,13,15,],[-12,14,-11,-12,-10,]),}
+_lr_action_items = {'OPENHTHREE':([0,],[3,]),'$end':([1,2,7,11,],[0,-1,-2,-3,]),'CONTENT':([3,4,8,10,12,13,14,15,16,17,],[4,5,10,12,13,14,15,16,17,18,]),'CLOSEHTHREE':([5,],[6,]),'OPENP':([6,],[8,]),'CLOSEP':([9,12,14,16,18,],[11,-4,-5,-6,-7,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'month':([0,],[2,]),'empty':([0,7,9,13,14,],[3,10,12,12,16,]),'openpData':([7,],[8,]),'dataInEachLi':([9,13,],[11,15,]),}
+_lr_goto_items = {'start':([0,],[1,]),'portionToExtract':([0,],[2,]),'dataToExtract':([6,],[7,]),'content':([8,],[9,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,16 +27,11 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> month','start',1,'p_start','try.py',133),
-  ('start -> empty','start',1,'p_start','try.py',134),
-  ('month -> OPENHTWO CONTENT CONTENT CLOSEHTWO openpData','month',5,'p_month','try.py',138),
-  ('skiptag -> CONTENT skiptag','skiptag',2,'p_skiptag','try.py',149),
-  ('skiptag -> OPENHREF skiptag','skiptag',2,'p_skiptag','try.py',150),
-  ('skiptag -> CLOSEHREF skiptag','skiptag',2,'p_skiptag','try.py',151),
-  ('skiptag -> empty','skiptag',1,'p_skiptag','try.py',152),
-  ('openpData -> OPENP dataInEachLi CLOSEP empty','openpData',4,'p_openpData','try.py',155),
-  ('openpData -> empty','openpData',1,'p_openpData','try.py',156),
-  ('dataInEachLi -> CONTENT dataInEachLi','dataInEachLi',2,'p_dataInEachLi','try.py',166),
-  ('dataInEachLi -> empty','dataInEachLi',1,'p_dataInEachLi','try.py',167),
-  ('empty -> <empty>','empty',0,'p_empty','try.py',231),
+  ('start -> portionToExtract','start',1,'p_start','indiaParser.py',130),
+  ('portionToExtract -> OPENHTHREE CONTENT CONTENT CLOSEHTHREE dataToExtract','portionToExtract',5,'p_portionToExtract','indiaParser.py',134),
+  ('dataToExtract -> OPENP content CLOSEP','dataToExtract',3,'p_dataToExtract','indiaParser.py',141),
+  ('content -> CONTENT CONTENT','content',2,'p_content','indiaParser.py',146),
+  ('content -> CONTENT CONTENT CONTENT CONTENT','content',4,'p_content','indiaParser.py',147),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',6,'p_content','indiaParser.py',148),
+  ('content -> CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT','content',8,'p_content','indiaParser.py',149),
 ]
