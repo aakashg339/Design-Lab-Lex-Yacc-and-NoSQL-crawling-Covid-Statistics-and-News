@@ -23,7 +23,16 @@ python3 menu.py
 
 Please enter valid inputs as mentioned in the menu.
 
-For module 2 (country - India)
+For module 2.1 and 2.2 : 
+
+```
+cd Module2
+python3 Mainpage_download.py
+python3 links_extract.py
+python3 extract_info.py
+```
+
+For module 2.3 (country - India)
 
 ```
 cd Module2.3
