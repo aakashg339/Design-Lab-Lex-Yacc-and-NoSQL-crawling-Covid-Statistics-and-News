@@ -20,11 +20,10 @@ def t_BEGINTABLE(t):
 
 def t_OPENTABLE(t):
     r'<tbody[^>]*>'
-    return t
 
 def t_CLOSETABLE(t):
     r'</tbody[^>]*>'
-    return t
+
 
 def t_OPENROW(t):
     r'<tr[^>]*>'
@@ -96,11 +95,11 @@ def t_CLOSEHTHREE(t):
 
 def t_OPENUL(t):
     r'<ul[^>]*>'
-    return t
+
 
 def t_CLOSEUL(t):
     r'</ul[^>]*>'
-    return t
+
 
 def t_OPENLI(t):
     r'<li[^>]*>'
@@ -112,11 +111,11 @@ def t_CLOSELI(t):
 
 def t_OPENP(t):
     r'<p[^>]*>'
-    return t
+
 
 def t_CLOSEP(t):
     r'</p[^>]*>'
-    return t
+
 
 def t_GARBAGE(t):
     r'<[^>]*>'
@@ -139,7 +138,7 @@ valueList = []
 
 
 def p_dataToExtract(p):
-    '''dataToExtract : OPENP content CLOSEP dataToExtract
+    '''dataToExtract : OPENLI content CLOSELI dataToExtract
                     | empty'''
     p[0] = p[1]
 
@@ -229,7 +228,7 @@ def main():
 
     filename = filename.strip()
 
-    # filename = "Malaysia(2022)"
+    # filename = "England(2021)"
     
     # Read keys from filename (key) dataUrls.txt
     fileNames = []

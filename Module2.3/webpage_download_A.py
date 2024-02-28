@@ -109,3 +109,9 @@ for country in countryAndFileMap:
             filename = filename.replace("(", "\(")
             filename = filename.replace(")", "\)")
             os.system("python3 countryMalaysiaParser.py " + filename)
+    elif country == "England":
+        for filename in countryAndFileMap[country]:
+            # replace '(' with '\(' and ')' with '\)'
+            filename = filename.replace("(", "\(")
+            filename = filename.replace(")", "\)")
+            os.system("python3 countryEnglandParser.py " + filename)
