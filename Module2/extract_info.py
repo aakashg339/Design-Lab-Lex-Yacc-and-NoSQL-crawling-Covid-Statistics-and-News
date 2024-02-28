@@ -99,19 +99,19 @@ def p_dataContent(p):
     global para
     if(len(p)==2):
         if(not re.search(r'edit|tibet|see also|references', p[1],re.IGNORECASE)):
-            para+=(p[1])
+            para+=(p[1]+'\n')
     elif(len(p)==3):
-        para+=(p[1]+p[2])
+        para+=(p[1]+p[2]+'\n')
     elif(len(p)==4):
-        para+=(p[1]+p[2]+p[3])
+        para+=(p[1]+p[2]+p[3]+'\n')
     elif(len(p)==5):
-        para+=(p[1]+p[2]+p[3]+p[4])
+        para+=(p[1]+p[2]+p[3]+p[4]+'\n')
     elif(len(p)==6):
-        para+=(p[1]+p[2]+p[3]+p[4]+p[5])
+        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+'\n')
     elif(len(p)==7):
-        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6])
+        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+'\n')
     elif(len(p)==8):
-        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+p[7])
+        para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+p[7]+'\n')
         
 
 def p_reLI(p):
