@@ -109,7 +109,8 @@ def p_orderedlist(p):
                 and ('timeline' in p[2].lower() or 'response' in p[2].lower())) \
                 and re.search(r'\b\d{4}\b', p[2]):
             main_list.append(p[2])
-
+        elif re.search(r'_of_the_COVID-19_pandemic_in_(\d{4})', p[2]):
+            main_list.append(p[2])
 
 def p_empty(p):
     '''empty :'''
@@ -142,7 +143,7 @@ def download_html(url):
 
 
 def main():
-    file_obj = open('covid19main.html', 'r', encoding="utf-8")
+    file_obj = open('jan2020.html', 'r', encoding="utf-8")
     data = file_obj.read()
     lexer = lex.lex()
     lexer.input(data)
@@ -170,7 +171,7 @@ def main():
         
         # Combine regular expressions to extract both response and timeline links
         match_response = re.search(r'_to_the_COVID-19_pandemic_in_(\w+)_([0-9]{4})', link)
-        match_timeline = re.search(r'_of_the_COVID-19_pandemic_in_(\w+)_([0-9]{4})', link)
+        match_timeline = re.search(r'_of_the_COVID-19_pandemic_in_(\w+)?_?(\d{4})', link)
         
         if match_response:
             month, year = match_response.groups()
@@ -179,6 +180,8 @@ def main():
             prefix = 'R'
         elif match_timeline:
             month, year = match_timeline.groups()
+            if not month:
+                month = ""
             # This is a timeline link
             folder_name = TIMELINE_FOLDER
             prefix = 'T'
@@ -186,7 +189,12 @@ def main():
             print(f"Neither response nor timeline link: {link}")
             continue
         
-        file_name = f"{prefix}_{month}_{year}.html"
+        # Adjust file_name based on the presence of month
+        if month:
+            file_name = f"{prefix}_{month}_{year}.html"
+        else:
+            file_name = f"{prefix}_{year}.html"
+
         print(f"Saving HTML file: {file_name} to folder: {folder_name}")
         
         html_content = download_html(full_url)
@@ -194,7 +202,6 @@ def main():
             save_html(file_name, folder_name, html_content)
         else:
             print(f"Failed to download HTML content from URL: {full_url}")
-
 
 if __name__ == '__main__':
     main()
