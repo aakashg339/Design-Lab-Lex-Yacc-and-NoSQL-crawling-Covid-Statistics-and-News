@@ -1,6 +1,6 @@
 Country: italy
-              	 Jan 03, 2021	   Feb 05, 2021		Percentage chnage	Closest match
-active cases  	       553766	         427426		       -22.81%	    russia (-20.38%)
-new cases     	        14376	          14314		        -0.43%	     germany (2.42%)
-new deaths    	          347	            377		         8.65%	     mexico (10.80%)
-new recoveries	        14376	          14314		        -0.43%	     germany (2.42%)
+              	 Jan 01, 2021	   Jan 10, 2021		Percentage chnage	Closest match
+active cases  	       551844	         561194		         1.69%	      russia (2.29%)
+new cases     	        22457	          18850		       -16.06%	   germany (-16.53%)
+new deaths    	          463	            361		       -22.03%	    russia (-14.93%)
+new recoveries	        22457	          18850		       -16.06%	   germany (-16.53%)

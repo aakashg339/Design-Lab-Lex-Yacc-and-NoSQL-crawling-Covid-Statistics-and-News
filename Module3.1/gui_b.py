@@ -1,18 +1,23 @@
 import tkinter as tk
 import os
 import subprocess
+# global cnt
+start_date=""
+end_date=""
+allcountries = ['canada', 'france','italy', 'mexico', 'russia', 'germany']
+
 def userchoice():
     try:
         choice = int(entry.get())
-        if choice == 1:
-            result_label.config(text="You have chosen option 1. Please enter the country name.")
+        if choice == 2:
+            result_label.config(text="You have chosen option 2. Please enter the country name.")
             # Disable the entry widget temporarily until the country name is entered
             entry.config(state=tk.DISABLED)
             country_entry.config(state=tk.NORMAL)
             country_button.config(state=tk.NORMAL)
             back_button.config(state=tk.DISABLED)
-        elif choice == 2:
-            result_label.config(text="You have chosen option 2")
+        elif choice == 1:
+            result_label.config(text="You have chosen option 1")
         else:
             result_label.config(text="Please enter a valid choice")
     except ValueError:
@@ -21,10 +26,10 @@ def userchoice():
 
 def process_country():
     country = country_entry.get().strip().lower()
-    country = country[0].upper() + country[1:]
-    with open('./A/country.txt', 'w') as f:
-        f.write(country)
-    fields_label.config(text="Enter the number of fields you want to see:")
+    global cnt
+    cnt=country
+
+    fields_label.config(text="Please enter 2 to continue:")
     country_entry.config(state=tk.DISABLED)
     country_button.config(state=tk.DISABLED)
     fields_entry.config(state=tk.NORMAL)
@@ -34,7 +39,8 @@ def process_country():
 
 def display_fields():
     n = int(fields_entry.get())
-    fields_label.config(text="Enter field names one by one:")
+    # n=2
+    fields_label.config(text="Enter start date and end date (DD-MM-YYYY):")
     fields_entry.config(state=tk.DISABLED)
     fields_button.config(state=tk.DISABLED)
     
@@ -44,6 +50,7 @@ def display_fields():
         field_entry.pack()
         fields_list.append(field_entry)
     
+
     # Enable the submit button after all fields have been entered
     submit_button.config(state=tk.NORMAL)
     back_button.config(state=tk.NORMAL)
@@ -52,18 +59,27 @@ def submit_fields():
     field_names = [field_entry.get() for field_entry in fields_list]
     confirmation_label.config(text=f"Fields entered: {', '.join(field_names)}")
     print(field_names)
-    with open('./A/fields.txt', 'w') as f:
-        for field in field_names:
-            f.write(field + '\n')
+    start_date=field_names[0]
+    cty=cnt
+    end_date=field_names[1]
+    with open('./B/user.txt', 'w') as f:
+            f.write(cty + '\n' + start_date + '\n' + end_date)
+
+    for i in allcountries:
+            i= i.lower()
+            # if i != country:
+            with open(f'./B/allcountries/{i}.txt', 'w') as f:
+                f.write(i + '\n' + start_date + '\n' + end_date)
+
 
     try:
-        result = subprocess.run(['make', '-C', './A'], capture_output=True, text=True)
+        result = subprocess.run(['make', '-C', './B'], capture_output=True, text=True)
         os_output_label.config(text=f"Make command result: {result.stdout}")
     except Exception as e:
         os_output_label.config(text=f"Error executing make command: {e}")
 
     try :
-        result = subprocess.run(['cat', './A/output_1.txt'], capture_output=True, text=True)
+        result = subprocess.run(['cat', './B/output_B.txt'], capture_output=True, text=True)
         os_output_label.config(text=f"Output: {result.stdout}")
     except Exception as e:
         os_output_label.config(text=f"Error executing cat command: {e}")
@@ -104,7 +120,7 @@ text = tk.Label(root, text="2. Show the details of statistics of a country over 
 text.pack()
 
 # create a button to take user input of 1 or 2
-button = tk.Button(root, text="Enter your choice", command=userchoice)
+button = tk.Button(root, text="Enter your choice <PLEASE PRESS 2>", command=userchoice)
 button.pack()
 
 # Create a label to display the result
