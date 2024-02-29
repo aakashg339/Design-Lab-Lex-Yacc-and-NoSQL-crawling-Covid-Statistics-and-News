@@ -1,4 +1,5 @@
 import os
+import datetime
 
 EXtRACTED_DATA_PATH = "../Module2.3/extractedData/"
 
@@ -34,6 +35,28 @@ def printDateRangeforCountry(country):
     # Execute the shell command
     os.system(shell_command)
 
+def printNewsInDateRange(country, startDate, endDate):
+    # Get all the filenames in the extractedData folder
+    extractedDataFiles = os.listdir(EXtRACTED_DATA_PATH)
+
+    # Take files with India in the name
+    indiaFiles = list(filter(lambda x: country in x, extractedDataFiles))
+
+
+    # replace ( with \( and ) with \)
+    indiaFiles = list(map(lambda x: x.replace("(", "\("), indiaFiles))
+    indiaFiles = list(map(lambda x: x.replace(")", "\)"), indiaFiles))
+
+    # With all the files with India in the name, run the shell command. For each file, the mapper and combiner will be run and the output will be sorted and then the reducer will be run
+    # Create shell command
+    shell_command = "("
+    for file in indiaFiles:
+        shell_command += f"cat {EXtRACTED_DATA_PATH}{file} | python3 4/mapper.py {startDate} {endDate} | sort | python3 4/combiner.py ;"
+    shell_command += ") | sort | python3 4/reducer.py > output.txt"
+
+    # Execute the shell command
+    os.system(shell_command)
+
 countries = ["India", "Australia", "Malaysia", "England"]
 # Menu
 while True:
@@ -53,7 +76,25 @@ while True:
         else:
             print("Country not found")
     elif choice == "3":
-        print("ToDo")
+        country = input("Enter country: ")
+        if country in countries:
+            # Take date range from user
+            startDate = input("Enter start date (dd-Month-YYYY): ")
+            endDate = input("Enter end date (dd-Month-YYYY): ")
+
+            # Check if the date is in the correct format
+            try:
+                datetime.datetime.strptime(startDate, '%d-%B-%Y')
+                datetime.datetime.strptime(endDate, '%d-%B-%Y')
+            except:
+                print("Invalid date")
+                continue
+
+
+
+            printNewsInDateRange(country, startDate, endDate)
+        else:
+            print("Country not found")
     elif choice == "4":
         break
     else:
