@@ -310,7 +310,7 @@ env= []
 env_2 = []
 
 def main():
-    file_obj = open('./webpage.html', 'r', encoding="utf-8")
+    file_obj = open('../Module1/allcountries_table/webpage.html', 'r', encoding="utf-8")
     data = file_obj.read()
     lexer = lex.lex()
     # lexer.input(data)
@@ -322,7 +322,7 @@ def main():
     # print(env)
     # print(env_2)
 
-    with open("./output.txt", "w") as f:
+    with open("../Module1/allcountries_table/output.txt", "w") as f:
         l=[]
         for item in env:
             l.append(item)

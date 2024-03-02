@@ -292,7 +292,7 @@ env_date = []
 
 
 def main():
-    file_obj = open('./webpage.html', 'r', encoding="utf-8")
+    file_obj = open('../Module1/individual_country/webpage.html', 'r', encoding="utf-8")
     data = file_obj.read()
     lexer = lex.lex()
     # lexer.input(data)
@@ -318,7 +318,7 @@ def main():
 
 
     # # print((env_value[0]))
-    with open("./output_newrecoveries.txt", "w") as f:
+    with open("../Module1/individual_country/output_newrecoveries.txt", "w") as f:
         for i in data:
             f.write(str(i))
             f.write("\n")

@@ -1,5 +1,4 @@
-Country: Spain
-DETAILS OF                     Spain                AND WORLD's PERCENTAGE
+Country: India
+DETAILS OF                     India                AND WORLD's PERCENTAGE
 
-new cases                     	None                None
-new deaths                    	None                None
+new cases                     	193                 2.44%

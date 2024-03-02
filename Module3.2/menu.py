@@ -68,6 +68,7 @@ while True:
         print("Invalid choice. Please try again.")
         continue
     if extract_choice == 2:
+        print("Extracting data from web...")
         # os.system('python3 ../Module1/allcountries_table/driver.py')
         # os.system('python3 ../Module2.3/webpage_download_A.py')
 

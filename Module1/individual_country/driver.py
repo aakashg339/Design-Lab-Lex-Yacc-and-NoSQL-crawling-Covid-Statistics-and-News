@@ -21,7 +21,7 @@ allcountries = ['canada', 'france','italy', 'mexico', 'russia', 'germany']
 
 import datetime
 today_date=date.today()
-print("Extracting data from the webpage on ",today_date)
+print("Extracting data from the webpage on ",datetime.datetime.now())
 
 for i in allcountries:
     i=i.lower()
@@ -30,17 +30,18 @@ for i in allcountries:
     req = Request(url,headers ={'User-Agent':'Mozilla/5.0'})
     webpage = urlopen(req).read()
     mydata = webpage.decode("utf8")
-    f=open('webpage.html','w',encoding="utf-8")
+    f=open('../Module1/individual_country/webpage.html','w',encoding="utf-8")
+    # f=open(f'..Module1/individual_country/webpage.html','w',encoding="utf-8")
     f.write(mydata)
     f.close
 
 # 
 
-    os.system('python3 extract_activecases.py')
-    os.system('python3 extract_newcases.py')
-    os.system('python3 ./extract_newdeaths.py')
-    os.system('python3 ./extract_newrecoveries.py')
-    os.system(f'python3 ./merge.py {i}')
-    os.system('rm webpage.html output_activecases.txt output_newcases.txt output_newdeaths.txt output_newrecoveries.txt')
+    os.system('python3 ../Module1/individual_country/extract_activecases.py')
+    os.system('python3 ../Module1/individual_country/extract_newcases.py')
+    os.system('python3 ../Module1/individual_country/extract_newdeaths.py')
+    os.system('python3 ../Module1/individual_country/extract_newrecoveries.py')
+    os.system(f'python3 ../Module1/individual_country/merge.py {i}')
+    os.system('rm ../Module1/individual_country/webpage.html ../Module1/individual_country/output_activecases.txt ../Module1/individual_country/output_newcases.txt ../Module1/individual_country/output_newdeaths.txt ../Module1/individual_country/output_newrecoveries.txt')
 
 print("EXTRACTION COMPLETED!")
