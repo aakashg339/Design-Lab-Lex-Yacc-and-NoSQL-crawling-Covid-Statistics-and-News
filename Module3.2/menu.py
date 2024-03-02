@@ -4,7 +4,7 @@ import os
 def display_responses(start_month, start_year, end_month, end_year):
     os.system('python3 file1.py')
     os.system(f'python3 selected_files.py {start_month} {start_year} {end_month} {end_year}')
-
+    os.system('cat store.txt | python3 mapper.py | python3 combiner.py | python3 reducer.py')
 # Function to validate if the input is in the correct format and represents valid months
 def validate_input(input_str):
     try:
