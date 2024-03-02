@@ -62,12 +62,16 @@ countries = ["India", "Australia", "Malaysia", "England"]
 while True:
     print("1. Run the queries on PRE-EXISTING data")
     print("2. EXTRACT data from web and then run the queries")
+    print("3. e/E for Exit")
     print("Enter your choice: ", end="")
-    extract_choice = int(input())
-    if extract_choice != 1 and extract_choice != 2:
+
+    extract_choice = (input())
+    if extract_choice == 'e' or extract_choice == 'E':
+        break
+    if extract_choice != '1' and extract_choice != '2':
         print("Invalid choice. Please try again.")
         continue
-    if extract_choice == 2:
+    if extract_choice == '2':
         print("Extracting data from web...")
         # os.system('python3 ../Module1/allcountries_table/driver.py')
         # os.system('python3 ../Module2.3/webpage_download_A.py')

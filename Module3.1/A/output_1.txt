@@ -1,4 +1,4 @@
-Country: Bangladesh
-DETAILS OF                     Bangladesh           AND WORLD's PERCENTAGE
+Country: Pakistan
+DETAILS OF                     Pakistan             AND WORLD's PERCENTAGE
 
-total cases                   	2,048,186           0.29%
+total cases                   	1,581,936           0.22%
