@@ -40,13 +40,9 @@ if __name__ == "__main__":
     files_in_range = get_files_in_time_range(start_month, start_year, end_month, end_year)
     
     if files_in_range:
-        print("Files within the specified time range:")
         for file in files_in_range:
             print(file)
         
         # Combine the contents of all selected text files into a single file
         output_file = "store.txt"
         combine_txt_files(files_in_range, output_file)
-        print(f"Contents of selected files combined into '{output_file}'.")
-    else:
-        print("No files found within the specified time range.")
