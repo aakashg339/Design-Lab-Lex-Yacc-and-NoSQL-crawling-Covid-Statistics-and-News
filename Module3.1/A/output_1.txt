@@ -1,4 +1,4 @@
-Country: India
-DETAILS OF                     India                AND WORLD's PERCENTAGE
+Country: Bangladesh
+DETAILS OF                     Bangladesh           AND WORLD's PERCENTAGE
 
-new cases                     	193                 2.44%
+total cases                   	2,048,186           0.29%

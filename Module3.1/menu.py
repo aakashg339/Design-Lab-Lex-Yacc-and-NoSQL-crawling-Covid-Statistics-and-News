@@ -1,5 +1,5 @@
 import os
-print("WELCOME TO MODULE 3.1 . Please press (g/G) for GUI and (c/C) for command line interface")
+print("Please press (g/G) for GUI and (c/C) for command line interface")
 ch = input().strip().lower()
 if ch == 'g':
     while True:
@@ -22,7 +22,7 @@ if ch == 'g':
         
 elif ch == 'c':
     while True:
-        print("WELCOME TO MODULE 3.1 SHOWING DETAILS OF COVID DATA")
+        print("\nWELCOME TO MODULE 3.1 SHOWING DETAILS OF COVID DATA")
 
         print("1. Show the details of statistics of a country and the world's percentage")
         print("2. Show the details of statistics of a country over a specified period of time")
@@ -31,7 +31,7 @@ elif ch == 'c':
         choice = int(input())
 
         if choice == 1:
-            print("1. Run the queries on PRE-EXISTING data")
+            print("\n1. Run the queries on PRE-EXISTING data")
             print("2. EXTRACT data from web and then run the queries")
             print("Enter your choice: ", end="")
             extract_choice = int(input())
