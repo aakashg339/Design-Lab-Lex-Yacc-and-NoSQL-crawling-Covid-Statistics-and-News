@@ -1,11 +1,17 @@
-01-Aug-2021| a man aged in his 90s died at  Liverpool Hospital . He was the 15th death during the Delta outbreak, the 71st COVID-19 related death in NSW, and the 925th in Australia. 91 60 93
-01-May-2021| a male guard at the  Pan Pacific  quarantine hotel in Perth, tested positive to COVID-19. He had already received his first dose of COVID vaccine. 2 of his 7 housemates, both food delivery drivers, then tested positive. 91 112 93 91 113 93  While likely to have been infectious the guard visited several locations in the community, raising the possibility of another lockdown in Western Australia. 91 114
-01-Oct-2021| 15 deaths and 864 new locally acquired cases of COVID-19 were recorded within the previous 24 hours. The total number of COVID related deaths in NSW since the beginning of the pandemic was now 408. 91 164 93
-02-Oct-2021| 10 deaths and 813 new locally acquired cases of COVID-19 were recorded within the previous 24 hours. The total number of COVID cases in NSW since the beginning of the pandemic was now 63,825. 91 165 93
-03-Aug-2021| two people died from COVID-19 in Sydney. One was a man in his twenties, the other was a woman in her eighties. This brought COVID deaths in NSW since 16 June 2021 during the Delta outbreak to 17, total NSW COVID deaths to 73 91 63 93 91 64 93  and 927 nationwide, since the start of the pandemic.
-03-Oct-2021| 10 deaths and 667 new locally acquired cases of COVID-19 were recorded within the previous 24 hours. The total number of COVID related deaths was 428, and there were 64,479 COVID cases in NSW since the beginning of the pandemic. 91 166 93
-04-Aug-2021| five people died from COVID-19, all confirmed COVID cases. Four of the five dead were male, three in their 60s, one in his 70s, and the last death was a female in her 80s. Deaths in NSW during the Delta outbreak rose to 21, and during the entire COVID-19 pandemic to 78. 91 65 93  The total number of deaths nationwide reached 932.
-04-Oct-2021| 6 deaths and 623 new locally acquired cases of COVID-19 were recorded within the previous 24 hours. The total number of COVID related deaths was 434, and COVID cases in NSW since the beginning of the pandemic reached 65,090.  City of Lismore  LGA went into lockdown until 11 October. The stay-at-home order applies to residents and visitors to the City of Lismore LGA since 28 September. 91 167 93
-05-Aug-2021| there was one COVID-19 death at Liverpool Hospital. A woman was infected while in the hospital, which had a COVID outbreak. 91 66 93 91 67 93  Also on 5 August in NSW, new stay-at-home orders were issued for  Cessnock ,  Dungog , Lake Macquarie, Maitland,
-05-Sep-2021| over 160,000 doses of Pfizer vaccine from the United Kingdom  UK  arrived in Sydney. It was the first shipment as part of a vaccine swap deal. The deal will double Australias  supply of Pfizer vaccine doses for September, and close a gap in supply. 91 129 93
-07-Sep-2021| there had been 3 deaths of indigenous Australians, all in NSW, none of whom were vaccinated. 91 130 93
+01-Apr-2021| Vaccinations were made available to all Indians over the age of 45.9110
+02-Apr-2021| India reported 89,129 new cases, the most in more than six months.9111
+02-May-2021| India reported a record 3,689 new deaths and 392,488 new cases.9157
+04-May-2021| India surpassed 20 million total cases since the start of the pandemic.9159
+09-Apr-2021| India surpassed 13 million total cases as the country recorded another record daily case count, 131,968, and 780 new deaths.9117
+09-May-2021| India reported 403,405 new confirmed cases, the fourth day in a row with more than 400,000 cases, along with 4,077 new deaths.9172
+12-May-2021| India reported 4,205 new deaths from the virus, the most in a 24-hour span since the pandemic began for any country in the world, pushing its death total past 250,000.9181
+18-Apr-2021| India surpassed 15 million total confirmed COVID cases nationwide.9130
+18-May-2021| India surpassed 25 million total cases,9194
+20-Apr-2021| With 234,000 new cases, in addition to 1,341 new deaths, India recorded more than 1.6 million cases in the span of a week. As hospitals reached capacity, numerous reports indicated that many people died whilst awaiting treatment at and outside of hospitals or after being turned away.9134
+20-May-2021| India reported an additional 276,110 cases and 3,874 deaths.9199
+22-Feb-2021| India surpassed 11 million total cases with more than 150,000 deaths.918
+23-Apr-2021| 14 COVID patients died when a fire broke out in an intensive care unit inside a Mumbai hospital. Dozens of patients at multiple hospitals died after running out of oxygen as the oxygen shortage increased around the country.
+24-Apr-2021| India reported a record 346,786 new cases and 2,624 deaths.9138
+26-May-2021| India surpassed 27 million total cases, adding another 208,921 new cases 4,157 new deaths.91107
+29-Mar-2021| India surpassed 12 million total cases as the daily case count reached 68,020, the highest in five months.919
+30-Apr-2021| India reported 386,453 new infections and 3,498 deaths.9152

@@ -1,1 +1,3 @@
 total cases
+new cases
+total deaths

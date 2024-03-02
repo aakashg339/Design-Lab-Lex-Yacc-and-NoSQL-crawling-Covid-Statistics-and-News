@@ -1,6 +1,6 @@
-Country: russia
-              	 Feb 02, 2021	   Apr 04, 2021		Percentage chnage	Closest match
-active cases  	       470027	         276439		       -41.19%	     mexico (-5.61%)
-new cases     	        16643	           8817		       -47.02%	    mexico (-66.26%)
-new deaths    	          539	            357		       -33.77%	     italy (-34.80%)
-new recoveries	        16643	           8817		       -47.02%	    mexico (-66.26%)
+Country: italy
+              	 Feb 02, 2021	   May 03, 2021		Percentage chnage	Closest match
+active cases  	       437356	         417726		        -4.49%	     mexico (-1.10%)
+new cases     	         9721	           5988		       -38.40%	    russia (-48.99%)
+new deaths    	          500	            256		       -48.80%	    russia (-37.66%)
+new recoveries	         9721	           5988		       -38.40%	    russia (-48.99%)

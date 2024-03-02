@@ -2,3 +2,5 @@ Country: India
 DETAILS OF                     India                AND WORLD's PERCENTAGE
 
 total cases                   	45,029,648          6.4%
+new cases                     	193                 2.44%
+total deaths                  	533,489                                7.62%
