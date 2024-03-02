@@ -1,6 +1,7 @@
 import os
 from urllib.request import Request, urlopen
 import re
+from datetime import datetime
 
 # URL of the wikipedia page
 url = "https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic"
@@ -29,6 +30,7 @@ pattern = re.compile(r'<a href="/wiki/Timeline_of_the_COVID-19_pandemic_in_'+cou
 # Data URLs
 dataUrls = {}
 countryAndFileMap = {}
+countryAndDateRangeMap = {}
 
 for country in countries:
     pattern = re.compile(r'<a href="/wiki/Timeline_of_the_COVID-19_pandemic_in_'+country+'_\((.*?)\)"')
@@ -36,6 +38,8 @@ for country in countries:
     matches = pattern.findall(webpage)
 
     countryAndFileMap[country] = []
+
+    countryAndDateRangeMap[country] = {"Start": "", "End": ""}
 
     # Construct the data URL for each match
     for match in matches:
@@ -115,3 +119,54 @@ for country in countryAndFileMap:
             filename = filename.replace("(", "\(")
             filename = filename.replace(")", "\)")
             os.system("python3 countryEnglandParser.py " + filename)
+
+# cleaning the data
+os.system("python3 cleaner.py")
+
+# Read the cleaned data and store starting and ending date of each country in a dictionary. The files are present in folder 'extractedData'
+for country in countryAndFileMap:
+    if country == "India" or country == "Australia" or country == "Malaysia" or country == "England":
+        for filename in countryAndFileMap[country]:
+
+            # Read the file and store the starting and ending date of each country in a dictionary
+            with open("extractedData/"+filename+".txt", "r") as file:
+                data = file.readlines()
+                file.close()
+
+                # Extract the starting and ending date of each country
+                for i in data:
+                    date = i.split("|")[0]
+
+                    # Convert to date format
+                    try:
+                        date_object = datetime.strptime(date, '%d-%B-%Y')
+                    except:
+                        continue
+                    # formatted_date = date_object.strftime('%d-%b-%Y')
+
+                    if countryAndDateRangeMap[country]["Start"] == "":
+                        countryAndDateRangeMap[country]["Start"] = date_object
+                    else:
+                        if date_object < countryAndDateRangeMap[country]["Start"]:
+                            countryAndDateRangeMap[country]["Start"] = date_object
+
+                    if countryAndDateRangeMap[country]["End"] == "":
+                        countryAndDateRangeMap[country]["End"] = date_object
+                    else:
+                        if date_object > countryAndDateRangeMap[country]["End"]:
+                            countryAndDateRangeMap[country]["End"] = date_object
+        countryAndDateRangeMap[country]["Start"] = countryAndDateRangeMap[country]["Start"].strftime('%d-%b-%Y')
+        countryAndDateRangeMap[country]["End"] = countryAndDateRangeMap[country]["End"].strftime('%d-%b-%Y')
+            
+
+# Print the starting and ending date of each country
+for country in countryAndDateRangeMap:
+    print("Starting and ending date of " + country + " is: ")
+    print("Start: " + countryAndDateRangeMap[country]["Start"])
+    print("End: " + countryAndDateRangeMap[country]["End"])
+
+# Write the starting and ending date of each country to a file
+with open("countryAndDateRangeMap.txt", "w") as file:
+    for country in countryAndDateRangeMap:
+        file.write(country + "|" + countryAndDateRangeMap[country]["Start"] + "|" + countryAndDateRangeMap[country]["End"] + "\n")
+    file.close()
