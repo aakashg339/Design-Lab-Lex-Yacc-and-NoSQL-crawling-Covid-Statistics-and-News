@@ -35,9 +35,7 @@ For module 2.1 and 2.2 :
 
 ```
 cd Module2
-python3 Mainpage_download.py
-python3 links_extract.py
-python3 extract_info.py
+python3 Mainpage_download.py && python3 links_extract.py && python3 extract_info.py
 ```
 
 For module 2.3 (country - India)
@@ -104,7 +102,8 @@ A menu is also provided to display the outputs related to module 1 from worldmet
 
 ## Module 3.2
 
-yet to be done
+There are 2 Parts present in this module. 
+- Part 1 : Displays all the worldwide responses given a time range. The user is asked about (start month start year end month end year). All the responces were extracted and saved in module 2. Given the time range, goes through all the subfolders and extracts all txt files which are inbetween those time range and puts all text in a single txt file. This is then fed to mapper. The mapper passes the data to the reducer which preprocess the data and sends it to the reducer for the final output. The output is displayed on terminal.
 
 ## Team Members:
 

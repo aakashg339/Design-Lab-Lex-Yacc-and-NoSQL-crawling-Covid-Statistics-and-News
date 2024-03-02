@@ -1,6 +1,5 @@
 import os
-
-# Function to display worldwide responses between the given time range
+import sys
 def display_responses(start_month, start_year, end_month, end_year):
     os.system('python3 file1.py')
     os.system(f'python3 selected_files.py {start_month} {start_year} {end_month} {end_year}')
@@ -34,9 +33,11 @@ def get_time_range():
 # Main function to run the menu-driven program
 def main():
     while True:
+        print("WELCOME TO MODULE 3.2 SHOWING RESPONSES BETWEEN A TIME RANGE")
         print("\n1. Enter time range")
-        print("2. Exit")
-        choice = input("Enter your choice: ")
+        print('\n2. Go Back')
+        print("\n3. Exit")
+        choice = input("\nEnter your choice: ")
 
         if choice == '1':
             time_range = get_time_range()
@@ -44,10 +45,15 @@ def main():
                 start_month, start_year, end_month, end_year = time_range
                 display_responses(start_month, start_year, end_month, end_year)
         elif choice == '2':
+            None
+        elif choice == '3':
             print("Exiting the program.")
+            sys.exit()
             break
         else:
             print("Invalid choice. Please enter 1 or 2.")
+        print('\n\n')
+
 
 if __name__ == "__main__":
     main()
