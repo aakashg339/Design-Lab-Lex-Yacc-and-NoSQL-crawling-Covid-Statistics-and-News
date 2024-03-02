@@ -78,7 +78,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 para = ''
-
+list1 =[]
 ####################################################################################################################################################################################################
 											#GRAMMAR RULES
 def p_start(p):
@@ -97,10 +97,11 @@ def p_dataContent(p):
                    | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT
                    | CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT'''
     global para
-    if(len(p)==2):
-        if(not re.search(r'edit|tibet|see also|references', p[1],re.IGNORECASE)):
-            para+=(p[1]+'\n')
-    elif(len(p)==3):
+#   if(len(p)==2):
+#        if(not re.search(r'edit|tibet|see also|references|reactions', p[1],re.IGNORECASE)):
+#            if(re.search(r'january|febuary|march|april|may|june|july|august|september|october|november|december',p[1],re.IGNORECASE)):
+#                para+=(p[1]+':')
+    if(len(p)==3):
         para+=(p[1]+p[2]+'\n')
     elif(len(p)==4):
         para+=(p[1]+p[2]+p[3]+'\n')
@@ -112,7 +113,9 @@ def p_dataContent(p):
         para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+'\n')
     elif(len(p)==8):
         para+=(p[1]+p[2]+p[3]+p[4]+p[5]+p[6]+p[7]+'\n')
-        
+
+        #        if re.search(r'January|February|March|April|May|June|July|August|September|October|November|December', p[0], re.IGNORECASE):
+
 
 def p_reLI(p):
     '''reLI : dataContent dataHREF reLI
@@ -146,8 +149,11 @@ def p_dataCell(p):
 
 def p_handleheader(p):
     '''handleheader : OPENH2 dataSpan dataSpan dataSpan dataSpan dataHREF dataSpan dataSpan CLOSEH2
-                    | OPENH3 dataSpan dataSpan dataSpan dataHREF dataSpan dataSpan CLOSEH3
+                    | OPENH3 OPENSPAN CONTENT CLOSESPAN dataSpan dataSpan dataHREF dataSpan dataSpan CLOSEH3
                     '''
+    global para
+    if(len(p)==11):
+        para+=(p[3]+':')
     
 
         
@@ -168,12 +174,28 @@ def main():
             if match:
                 month = match.group(1)
                 year = match.group(2)
+
+                month_number = {
+                "january": "1",
+                "february": "2",
+                "march": "3",
+                "april": "4",
+                "may": "5",
+                "june": "6",
+                "july": "7",
+                "august": "8",
+                "september": "9",
+                "october": "10",
+                "november": "11",
+                "december": "12"
+                }[month.lower()]    
+
                 year_folder = os.path.join('extracted',year)
                 if not os.path.exists(year_folder):
                     os.makedirs(year_folder)
                 
                 file_path = os.path.join('response', file)
-                output_file_path = os.path.join(year_folder, f"{month}.txt")                    
+                output_file_path = os.path.join(year_folder, f"{year}_{month_number}_{month.lower()}.txt")
 
 
                 file_obj= open(file_path,'r',encoding="utf-8")
@@ -188,7 +210,7 @@ def main():
 
                 global para
                 with open(output_file_path,'w') as output_file:
-                    output_file.write(para)
+                    output_file.write(para+'\n')
                     para=''
 
 if __name__ == '__main__':
