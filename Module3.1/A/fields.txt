@@ -1,1 +1,2 @@
-total cases
+total tests
+active cases

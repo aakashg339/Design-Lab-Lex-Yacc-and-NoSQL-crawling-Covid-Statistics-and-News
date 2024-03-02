@@ -4,6 +4,7 @@ import os
 import ply.lex as lex
 import ply.yacc as yacc
 from urllib.request import Request, urlopen
+from datetime import date
 
 
 
@@ -16,3 +17,7 @@ f.write(mydata)
 f.close
 
 # os.system("python3 ./helper/stats.py")
+today_date=date.today()
+print("Extracting data from the webpage on ",today_date)
+os.system("python3 extract.py")
+print("EXTRACTION COMPLETED!")
