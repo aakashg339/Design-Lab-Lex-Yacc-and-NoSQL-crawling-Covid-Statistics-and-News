@@ -3,6 +3,7 @@
 import os,sys
 import ply.lex as lex
 import ply.yacc as yacc
+from datetime import date
 from urllib.request import Request, urlopen
 
 # user_country=(input("Enter the name of country: "))
@@ -18,6 +19,9 @@ allcountries = ['canada', 'france','italy', 'mexico', 'russia', 'germany']
 #                         'Botswana', 'Nigeria', 'Zimbabwe', 'Australia', 'Fiji', 'Papua New Guinea', 'New Caledonia', 'New Zealand'
 #                         ]
 
+import datetime
+today_date=date.today()
+print("Extracting data from the webpage on ",today_date)
 
 for i in allcountries:
     i=i.lower()
@@ -38,3 +42,5 @@ for i in allcountries:
     os.system('python3 ./extract_newrecoveries.py')
     os.system(f'python3 ./merge.py {i}')
     os.system('rm webpage.html output_activecases.txt output_newcases.txt output_newdeaths.txt output_newrecoveries.txt')
+
+print("EXTRACTION COMPLETED!")

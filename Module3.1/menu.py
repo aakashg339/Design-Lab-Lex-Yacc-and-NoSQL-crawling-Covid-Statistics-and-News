@@ -31,6 +31,16 @@ elif ch == 'c':
         choice = int(input())
 
         if choice == 1:
+            print("1. Run the queries on PRE-EXISTING data")
+            print("2. EXTRACT data from web and then run the queries")
+            print("Enter your choice: ", end="")
+            extract_choice = int(input())
+            if extract_choice != 1 and extract_choice != 2:
+                print("Invalid choice. Please try again.")
+                continue
+            if extract_choice == 2:
+                os.system('python3 ../Module1/allcountries_table/driver.py')
+
             print("Enter the country name: ", end="")
             country = input().strip().lower()
             country = country[0].upper() + country[1:]
@@ -68,6 +78,15 @@ elif ch == 'c':
                 print("The output is stored in the file ./A/output_1.txt")
 
         elif choice == 2:
+            print("1. Run the queries on PRE-EXISTING data")
+            print("2. EXTRACT data from web and then run the queries")
+            print("Enter your choice: ", end="")
+            extract_choice = int(input())
+            if extract_choice != 1 and extract_choice != 2:
+                print("Invalid choice. Please try again.")
+                continue
+            if extract_choice == 2:
+                os.system('python3 ../Module1/individual_country/driver.py')
             allcountries = ['canada', 'france','italy', 'mexico', 'russia', 'germany']
             # allcountries = ['France', 'UK', 'Russia', 'Italy', 'Germany', 'Spain', 'Poland', 'Netherlands', 'Ukraine', 'Belgium',
                             # 'USA', 'Mexico', 'Canada', 'Cuba', 'Costa Rica', 'Panama', 'India', 'Turkey', 'Iran', 'Indonesia',

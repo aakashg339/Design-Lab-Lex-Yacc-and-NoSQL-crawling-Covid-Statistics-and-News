@@ -1,5 +1,5 @@
-Country: France
-DETAILS OF                     France               AND WORLD's PERCENTAGE
+Country: Germany
+DETAILS OF                     Germany              AND WORLD's PERCENTAGE
 
-total cases                   	40,138,560          5.71%
-new cases                     	None                None
+total tests                   	122,332,384         None
+active cases                  	398,435             1.79%
