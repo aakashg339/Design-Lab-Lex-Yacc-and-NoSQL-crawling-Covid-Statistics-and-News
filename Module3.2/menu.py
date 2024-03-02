@@ -62,7 +62,7 @@ countries = ["India", "Australia", "Malaysia", "England"]
 while True:
     print("1. Run the queries on PRE-EXISTING data")
     print("2. EXTRACT data from web and then run the queries")
-    print("3. e/E for Exit")
+    # print("3. Go back to previous menu")
     print("Enter your choice: ", end="")
 
     extract_choice = (input())

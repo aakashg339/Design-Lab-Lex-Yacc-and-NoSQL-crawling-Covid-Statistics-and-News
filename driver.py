@@ -20,6 +20,9 @@ while True:
     if choice=="1":
         print("RAJ")
         x=os.getcwd()
+        print(x)
+        if "Module3.2/A" in x:
+            os.chdir("..")                        
         if "Module3.2" in x:
             os.chdir("..")
         if "Module3.1" not in x:
@@ -34,13 +37,22 @@ while True:
         country_choice= input()
         if country_choice=="1":
             print("SATYA")
-            
-            # os.system('python3 Module3.2/menu.py')
+            x=os.getcwd()
+            if "Module3.1" in x:
+                os.chdir("..")
+            if "Module3.2/A" not in x:
+                if "Module3.2" in x:
+                    os.chdir("A")
+                else:
+                    os.chdir("Module3.2/A")
+            os.system('python3 menu.py')
         if country_choice=="2":
-            # os.system('python3 Module3.2/country_wise.py')
             print("AAKASH")
             x=os.getcwd()
             if "Module3.1" in x:
+                os.chdir("..")
+            if "/A" in x:
+                print("A")
                 os.chdir("..")
             if "Module3.2" not in x:
                 os.chdir("Module3.2")

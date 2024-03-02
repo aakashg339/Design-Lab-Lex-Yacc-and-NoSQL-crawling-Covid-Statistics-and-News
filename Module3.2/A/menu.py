@@ -19,11 +19,11 @@ def get_time_range():
     while True:
         try:
             # input_str = input("Enter starting month starting year ending month ending year (e.g., 4 2020 5 2022), or 'exit' to go back to the main menu: ")
-            print("Enter starting month")
+            print("Enter starting month(1-12)")
             start_month=int(input())
             print("Enter starting year")
             start_year=int(input())
-            print("Enter ending month")
+            print("Enter ending month(1-12)")
             end_month=int(input())
             print("Enter ending year")
             end_year=int(input())
@@ -44,8 +44,8 @@ def main():
     while True:
         print("WELCOME TO MODULE 3.2 SHOWING RESPONSES BETWEEN A TIME RANGE")
         print("\n1. Enter time range")
-        print('\n2. Go Back')
-        print("\n3. Exit")
+        # print('\n2. Go Back')
+        print("2. Go back to previous menu")
         choice = input("\nEnter your choice: ")
 
         if choice == '1':
@@ -61,11 +61,11 @@ def main():
                     with open("output.txt", "r") as file:
                         print(file.read())
 
+        # elif choice == '2':
+        #     None
         elif choice == '2':
-            None
-        elif choice == '3':
-            print("Exiting the program.")
-            sys.exit()
+            # print("Exiting the program.")
+            # sys.exit()
             break
         else:
             print("Invalid choice. Please enter 1 or 2.")
