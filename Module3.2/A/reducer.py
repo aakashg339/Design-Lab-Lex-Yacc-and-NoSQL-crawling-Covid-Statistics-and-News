@@ -19,7 +19,9 @@ for line in sys.stdin:
                 # Combine all values for the current key
                 combined_value = ' | '.join(current_value)
                 # Output the combined key-value pair
-                print(f'{current_key} : {combined_value}')
+                # print(f'{current_key} : {combined_value}')
+                with open('output.txt', 'a') as f:
+                    f.write(f'{current_key} : {combined_value}\n')
             
             # Update current key and reset the value list
             current_key = key
@@ -31,4 +33,6 @@ for line in sys.stdin:
 # Process the last key-value pair
 if current_key is not None:
     combined_value = ' | '.join(current_value)
-    print(f'{current_key} : {combined_value}')
+    # print(f'{current_key} : {combined_value}')
+    with open('output.txt', 'a') as f:
+        f.write(f'{current_key} : {combined_value}\n')

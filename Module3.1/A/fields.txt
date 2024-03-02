@@ -1,2 +1,2 @@
-total tests
-active cases
+new cases
+new deaths

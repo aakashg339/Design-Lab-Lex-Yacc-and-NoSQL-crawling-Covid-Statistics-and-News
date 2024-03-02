@@ -18,10 +18,19 @@ def validate_input(input_str):
 def get_time_range():
     while True:
         try:
-            input_str = input("Enter starting month starting year ending month ending year (e.g., 4 2020 5 2022), or 'exit' to go back to the main menu: ")
-            if input_str.lower() == 'exit':
-                return None
-            start_month, start_year, end_month, end_year = map(int, input_str.split())
+            # input_str = input("Enter starting month starting year ending month ending year (e.g., 4 2020 5 2022), or 'exit' to go back to the main menu: ")
+            print("Enter starting month")
+            start_month=int(input())
+            print("Enter starting year")
+            start_year=int(input())
+            print("Enter ending month")
+            end_month=int(input())
+            print("Enter ending year")
+            end_year=int(input())
+
+            # if input_str.lower() == 'exit':
+            #     return None
+            # start_month, start_year, end_month, end_year = map(int, input_str.split())
             if not (1 <= start_month <= 12 and 1 <= end_month <= 12):
                 print("Invalid month. Month should be between 1 and 12.")
                 continue
@@ -44,6 +53,14 @@ def main():
             if time_range:
                 start_month, start_year, end_month, end_year = time_range
                 display_responses(start_month, start_year, end_month, end_year)
+                print("Response stored in output.txt")
+
+                print("Output is saved in output.txt. Do you want to see the output? (y/n)")
+                cch= input()
+                if cch == "y":
+                    with open("output.txt", "r") as file:
+                        print(file.read())
+
         elif choice == '2':
             None
         elif choice == '3':

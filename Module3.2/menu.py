@@ -60,25 +60,42 @@ def printNewsInDateRange(country, startDate, endDate):
 countries = ["India", "Australia", "Malaysia", "England"]
 # Menu
 while True:
+    print("1. Run the queries on PRE-EXISTING data")
+    print("2. EXTRACT data from web and then run the queries")
+    print("Enter your choice: ", end="")
+    extract_choice = int(input())
+    if extract_choice != 1 and extract_choice != 2:
+        print("Invalid choice. Please try again.")
+        continue
+    if extract_choice == 2:
+        # os.system('python3 ../Module1/allcountries_table/driver.py')
+        # os.system('python3 ../Module2.3/webpage_download_A.py')
+
+
     print("Press 1 to see country list")
     print("Press 2 to see date range of a country")
     print("Press 3 to enter country and date, and see the information")
     print("Press 4 to exit")
-    choice = input("Enter your choice: ")
+    choice = input("\nEnter your choice: ")
 
     if choice == "1":
         for country in countries:
             print(country)
     elif choice == "2":
-        country = input("Enter country: ")
+        country = input("\nEnter country: ")
+        country=country.lower()
+        country=country[0].upper()+country[1:]
         if country in countries:
             printDateRangeforCountry(country)
         else:
             print("Country not found")
     elif choice == "3":
-        country = input("Enter country: ")
+        country = input("\nEnter country: ")
+        country=country.lower()
+        country=country[0].upper()+country[1:]
         if country in countries:
             # Take date range from user
+            print("Example date format: 01-April-2021")
             startDate = input("Enter start date (dd-Month-YYYY): ")
             endDate = input("Enter end date (dd-Month-YYYY): ")
 
@@ -93,6 +110,14 @@ while True:
 
 
             printNewsInDateRange(country, startDate, endDate)
+
+            print("Output is saved in output.txt. Do you want to see the output? (y/n)")
+            cch= input()
+            if cch == "y":
+                with open("output.txt", "r") as file:
+                    print(file.read())
+
+
         else:
             print("Country not found")
     elif choice == "4":

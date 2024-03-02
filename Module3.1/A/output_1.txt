@@ -1,5 +1,5 @@
-Country: Germany
-DETAILS OF                     Germany              AND WORLD's PERCENTAGE
+Country: Spain
+DETAILS OF                     Spain                AND WORLD's PERCENTAGE
 
-total tests                   	122,332,384         None
-active cases                  	398,435             1.79%
+new cases                     	None                None
+new deaths                    	None                None
