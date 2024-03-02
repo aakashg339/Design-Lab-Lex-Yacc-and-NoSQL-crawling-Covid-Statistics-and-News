@@ -2,6 +2,7 @@
 
 ## Project : Lex Yacc and NoSQL - crawling Covid Statistics and News
 
+## Repository Link : https://github.com/aakashg339/Design-Lab-Lex-Yacc-and-NoSQL-crawling-Covid-Statistics-and-News
 
 ## Distribution of work : 
 
