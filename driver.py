@@ -5,10 +5,10 @@ print("Module 1: Extracting data from WORLDOMETER website [a. Tabular data for a
 print("Module 2: Extracting data from WIKIPEDIA website")
 print("Module 3: USING MAPPER_COMBINER-REDUCER to show the result of queries")
 
-print("\nLESSS GO !!!!!!!!!!!!!!!!!\n")
+print("\nLESSS GO !!!!!!!!!!!!!!!!!")
 
 while True:
-    print ("PRESS 1 for WORLDOMETER DATA EXTRACTION & QUERIES")
+    print ("\nPRESS 1 for WORLDOMETER DATA EXTRACTION & QUERIES")
     print ("PRESS 2 for WIKIPEDIA DATA EXTRACTION & QUERIES")
     print ("PRESS e/E to exit")
 
@@ -18,9 +18,9 @@ while True:
         break
 
     if choice=="1":
-        print("RAJ")
+        # print("RAJ")
         x=os.getcwd()
-        print(x)
+        # print(x)
         if "Module3.2/A" in x:
             os.chdir("..")                        
         if "Module3.2" in x:
@@ -36,7 +36,6 @@ while True:
         print("PRESS e/E to exit ")
         country_choice= input()
         if country_choice=="1":
-            print("SATYA")
             x=os.getcwd()
             if "Module3.1" in x:
                 os.chdir("..")
@@ -47,12 +46,10 @@ while True:
                     os.chdir("Module3.2/A")
             os.system('python3 menu.py')
         if country_choice=="2":
-            print("AAKASH")
             x=os.getcwd()
             if "Module3.1" in x:
                 os.chdir("..")
             if "/A" in x:
-                print("A")
                 os.chdir("..")
             if "Module3.2" not in x:
                 os.chdir("Module3.2")

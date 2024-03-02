@@ -60,27 +60,14 @@ def printNewsInDateRange(country, startDate, endDate):
 countries = ["India", "Australia", "Malaysia", "England"]
 # Menu
 while True:
-    print("1. Run the queries on PRE-EXISTING data")
-    print("2. EXTRACT data from web and then run the queries")
-    # print("3. Go back to previous menu")
-    print("Enter your choice: ", end="")
-
-    extract_choice = (input())
-    if extract_choice == 'e' or extract_choice == 'E':
-        break
-    if extract_choice != '1' and extract_choice != '2':
-        print("Invalid choice. Please try again.")
-        continue
-    if extract_choice == '2':
-        print("Extracting data from web...")
-        # os.system('python3 ../Module1/allcountries_table/driver.py')
-        # os.system('python3 ../Module2.3/webpage_download_A.py')
+    
 
 
-    print("Press 1 to see country list")
+    print("\nPress 1 to see country list")
     print("Press 2 to see date range of a country")
     print("Press 3 to enter country and date, and see the information")
-    print("Press 4 to exit")
+    print("PRESS b/B to go back to main menu")
+    
     choice = input("\nEnter your choice: ")
 
     if choice == "1":
@@ -125,7 +112,7 @@ while True:
 
         else:
             print("Country not found")
-    elif choice == "4":
+    elif choice == "b" or choice == "B":
         break
     else:
         print("Invalid choice")

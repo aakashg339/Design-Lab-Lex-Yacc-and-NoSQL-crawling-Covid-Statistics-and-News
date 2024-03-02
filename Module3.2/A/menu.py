@@ -43,9 +43,9 @@ def get_time_range():
 def main():
     while True:
         print("WELCOME TO MODULE 3.2 SHOWING RESPONSES BETWEEN A TIME RANGE")
-        print("\n1. Enter time range")
+        print("\nPress 1 Enter time range")
         # print('\n2. Go Back')
-        print("2. Go back to previous menu")
+        print("Press b/B to Go back to previous menu")
         choice = input("\nEnter your choice: ")
 
         if choice == '1':
@@ -63,13 +63,15 @@ def main():
 
         # elif choice == '2':
         #     None
-        elif choice == '2':
+        elif choice == 'b' or choice == 'B':
             # print("Exiting the program.")
             # sys.exit()
             break
         else:
             print("Invalid choice. Please enter 1 or 2.")
         print('\n\n')
+    
+    
 
 
 if __name__ == "__main__":

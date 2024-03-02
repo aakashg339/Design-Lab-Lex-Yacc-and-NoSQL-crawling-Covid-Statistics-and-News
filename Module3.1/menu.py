@@ -5,7 +5,7 @@ if ch == 'g':
     while True:
         print("1. Show the details of statistics of a country and the world's percentage")
         print("2. Show the details of statistics of a country over a specified period of time")
-        print("Press e/E to exit")
+        print("Press b/B to go back to previous menu")
 
         print("Enter your choice: ", end="")
         choice = (input())
@@ -14,7 +14,7 @@ if ch == 'g':
             os.system('python3 ./gui_a.py')
         elif choice == '2':
             os.system('python3 ./gui_b.py')
-        elif choice == 'e':
+        elif choice == 'b' or choice == 'B':
             break
         else:
             print("Invalid choice. Give again.")
@@ -26,11 +26,12 @@ elif ch == 'c':
 
         print("1. Show the details of statistics of a country and the world's percentage")
         print("2. Show the details of statistics of a country over a specified period of time")
+        print("Press b/B to go back to previous menu")
 
         print("Enter your choice: ", end="")
-        choice = int(input())
+        choice = (input())
 
-        if choice == 1:
+        if choice == '1':
             print("\n1. Run the queries on PRE-EXISTING data")
             print("2. EXTRACT data from web and then run the queries")
             print("Enter your choice: ", end="")
@@ -77,7 +78,7 @@ elif ch == 'c':
             else:
                 print("The output is stored in the file ./A/output_1.txt")
 
-        elif choice == 2:
+        elif choice == '2':
             print("1. Run the queries on PRE-EXISTING data")
             print("2. EXTRACT data from web and then run the queries")
             print("Enter your choice: ", end="")
@@ -125,6 +126,8 @@ elif ch == 'c':
             else:
                 print("The output is stored in the file ./B/output_B.txt")
 
+        elif choice == 'b' or choice == 'B':
+            break
         else:
             print("Invalid choice. Please try again.")
 
